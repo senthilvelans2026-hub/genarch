@@ -581,6 +581,67 @@ input[type="range"] {
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
+
+/* ===== v3.3 compact layout: the grid and the chat lead, everything else is small ===== */
+#hint-overlay{display:none!important}
+#steps{display:none!important}
+#status-pill{padding:5px 11px;font-size:11px;gap:7px}
+#status-pill .status-dot{width:6px;height:6px}
+#topleft{top:56px}
+#floors-bar{padding:3px}#floors-bar button{font-size:10.5px;padding:3px 9px}
+/* edit modes: a slim icon rail on the right edge */
+#mode-bar{top:50%;right:12px;transform:translateY(-50%);flex-direction:column;padding:5px;gap:3px;border-radius:16px}
+#mode-bar small{display:none}
+#mode-bar button{width:32px;height:32px;padding:0;justify-content:center;border-radius:10px;position:relative}
+#mode-bar button svg{width:16px;height:16px}
+#mode-bar button .dot{position:absolute;top:4px;right:4px}
+#mode-bar #mb-help{width:32px;height:24px;border:0;font-size:12px;color:var(--ink-faint)}
+#mode-bar button[data-tip]:hover::after{content:attr(data-tip);position:absolute;right:40px;top:50%;transform:translateY(-50%);background:var(--ink);color:var(--paper);font-size:10.5px;padding:3px 8px;border-radius:7px;white-space:nowrap;pointer-events:none}
+/* floating panels: narrower, tighter */
+.dock{width:212px;padding:10px 11px;gap:8px;border-radius:16px;font-size:12px}
+.dk-title{font-size:12.5px}.dk-title small{display:none}
+.dock .btn-accent{padding:8px}
+.dock .btn{font-size:11.5px}
+.dock label{font-size:10.5px}
+#dock-plan:not(.more) .dk-grid,#dock-plan:not(.more) .opacity-hint-wrap,#dock-plan:not(.more) #scale-readout{display:none!important}
+.dk-more{border:0;background:transparent;color:var(--ink-faint);font-size:10.5px;cursor:pointer;padding:0;text-align:left;width:auto!important}
+.dk-more:hover{color:var(--ink)}
+.lens-row{display:flex;gap:4px}.lens-row button{flex:1;border:1px solid var(--line);background:#fff;border-radius:8px;font-size:10.5px;padding:4px 0;cursor:pointer;color:var(--ink-soft)}
+.lens-row button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.lens-note{font-size:10px;color:var(--ink-faint);line-height:1.35}
+/* tips: small, only when asked for */
+#tip{padding:5px 6px 5px 10px;border-radius:11px;max-width:min(440px,calc(100vw - var(--chat-w) - 120px))}
+#tip .k{font-size:10px;padding:1px 6px 1px 2px}#tip kbd{font-size:9px}
+#lab-banner{padding:6px 8px 6px 12px;font-size:12px;top:104px}#lab-banner button{font-size:11px;padding:4px 10px}
+.pgc{font-size:10.5px;padding:2px 8px}
+#dock-labels{right:62px!important;top:30%!important}
+#dock-labels p{font-size:10.5px;line-height:1.4}
+#dock-labels p:last-of-type{display:none}
+.file-upload-sub{display:block;font-size:10.5px;color:var(--ink-faint);max-width:250px;text-align:center;line-height:1.4;margin-top:4px}
+/* v3.3 crop to one room */
+#crop-modal{position:fixed;inset:0;z-index:80;background:rgba(24,26,34,.55);display:flex;align-items:center;justify-content:center}
+#crop-modal.hidden{display:none}
+#crop-card{background:var(--paper,#fff);border-radius:18px;padding:16px 18px 14px;box-shadow:0 20px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:10px;max-width:92vw}
+#crop-card h3{margin:0;font-size:15px}
+#crop-card .why{font-size:12px;color:var(--ink-soft);max-width:640px;line-height:1.45;margin:0}
+#crop-canvas{background:#fff;border-radius:10px;cursor:crosshair;max-width:86vw;max-height:66vh;align-self:center}
+#crop-info{font-size:11.5px;color:var(--ink-soft)}#crop-info.warn{color:#a2471f}
+#crop-card .row{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.owner-btn{border:1px solid var(--line);background:#fff;border-radius:99px;font-size:10.5px;padding:5px 10px;cursor:pointer;color:var(--ink-soft);white-space:nowrap}
+.owner-btn:hover{border-color:var(--ink);color:var(--ink)}
+.owner-box{margin-top:6px;font-size:11px;color:var(--ink-soft);border:1px dashed var(--line);border-radius:10px;padding:5px 8px}
+.owner-box summary{cursor:pointer;font-weight:600}
+.owner-box .jr{margin-top:5px}.owner-box ul{margin:2px 0 0 14px;padding:0}
+.tex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:6px;margin-top:6px}
+.tex-grid figure{margin:0}.tex-grid img,.tex-grid i{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.tex-grid figcaption{font-size:9.5px;line-height:1.25;margin-top:2px}
+/* label facing arrow */
+.lab .face{font-size:11px;color:var(--accent-ink,#8a6a2f);display:inline-block;transition:transform .15s}
+.lab .face:hover{background:var(--accent);color:#fff}
+/* result card: other option + 3D */
+.media .bar .alt-n{font-size:10.5px;color:var(--ink-faint);margin-left:2px}
+.glb-row{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-soft);padding:6px 2px 0}
+.glb-row a{color:var(--accent-ink,#8a6a2f);font-weight:600}
 </style>
 </head>
 <body>
@@ -600,7 +661,7 @@ input[type="range"] {
     <div id="tip" class="hidden"></div>
     <div id="lab-banner" class="hidden"><span id="lab-banner-text">Labels are ready</span><button id="lab-banner-go">Review labels</button><button class="x" id="lab-banner-x" title="Dismiss">✕</button></div>
     <aside id="chat">
-        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v2.4</span></div><span class="sp"></span>
+        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v3.3</span></div><span class="sp"></span>
             <button id="btn-reset" class="btn btn-ghost btn-small" title="Start over"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg> Reset</button></div>
         <div id="chat-list"></div>
         <div id="composer">
@@ -614,6 +675,7 @@ input[type="range"] {
                     <label class="icon-btn ref-add" title="Add reference images"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5l-8.5 8.5a5.5 5.5 0 0 1-7.8-7.8l9-9a3.7 3.7 0 0 1 5.2 5.2l-9 9a1.8 1.8 0 0 1-2.6-2.6L15 8"/></svg><input type="file" id="ref-loader" accept="image/*" multiple></label>
                     <div class="ratios" id="resolution-controls"><button class="btn res-btn active" data-res="16:9">16:9</button><button class="btn res-btn" data-res="1:1">1:1</button><button class="btn res-btn" data-res="9:16">9:16</button><button class="btn res-btn" data-res="4:3">4:3</button></div>
                     <span class="sp"></span>
+                    <button id="btn-build3d" class="owner-btn hidden" title="Owner: build the 3D room only (no render, no credit). Open payloads/&lt;id&gt;/scene.blend to check it.">3D only</button>
                     <button id="btn-generate" class="send" disabled title="Generate scene"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
                 </div>
             </div>
@@ -622,12 +684,14 @@ input[type="range"] {
     <div id="chat-grip" title="Drag to resize the panel · double-click to reset"></div>
 
     <div id="dock-upload" class="dock on"><div class="dk-title" id="upload-title">Start with your floor plan</div>
-        <div id="upload-container" class="file-upload"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span class="file-upload-text">Click or drop an image of your plan</span><input type="file" id="image-loader" accept="image/*"></div></div>
+        <div id="upload-container" class="file-upload"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span class="file-upload-text">Click or drop your plan: image, PDF, DXF or DWG</span><span class="file-upload-sub">Most accurate: a DXF / DWG with walls, doors and windows on their own layers. With an image or PDF, label the objects as fully as you can.</span><input type="file" id="image-loader" accept="image/*,.pdf,.dxf,.dwg"></div></div>
     <div id="dock-plan" class="dock"><div class="dk-title">1 · Fit the plan <small>drag edges to scale, top knob to rotate</small></div>
         <div id="image-controls" class="hidden" style="display:flex;flex-direction:column;gap:11px">
             <div id="plan-note" class="hidden">This plan has shading or textures. Walls read most reliably from a clean black-and-white line plan.</div>
             <div class="dk-row opacity-hint-wrap"><label>Opacity</label><input type="range" id="img-opacity" min="0.1" max="1" step="0.05" value="0.5"><div id="opacity-hint" class="opacity-hint">Drag to adjust opacity</div></div>
             <div class="dk-grid"><div class="field"><label>X</label><input type="number" id="img-x" step="1"></div><div class="field"><label>Y</label><input type="number" id="img-y" step="1"></div><div class="field"><label>Scale</label><input type="number" id="img-scale" step="0.01"></div><div class="field"><label>Rotate °</label><input type="number" id="img-rotation" step="1"></div></div>
+            <button id="btn-crop" class="btn btn-small" title="Keep only the room you want to render">Crop to a room</button>
+            <button type="button" class="dk-more" id="plan-more">More settings ▾</button>
             <button id="btn-pick-scale" class="btn btn-small" title="Click two points with a known distance between them">Measure a known length</button>
             <button id="btn-align" class="btn btn-small hidden" title="Click a point on this floor, then the same point on the floor below. Do it for two points.">Align with the floor below</button>
             <button id="btn-auto-scale" class="btn btn-small hidden">Auto-detect from a dimension</button>
@@ -639,16 +703,18 @@ input[type="range"] {
     <div id="dock-cam" class="dock"><div class="dk-title">2 · Fix the camera <small>drag it on the plan</small></div>
         <button id="btn-add-camera" class="hidden" disabled></button>
         <div id="camera-controls" class="hidden" style="flex-direction:column;gap:11px">
-            <div class="dk-grid"><div class="field"><label>Height (m)</label><input type="number" id="cam-height" value="1.6" step="0.1"></div><div class="field"><label>FOV °</label><input type="number" id="cam-fov" value="75" min="30" max="120"></div></div>
-            <div class="dk-row"><label>On floor</label><select id="cam-floor" style="flex:1"></select></div>
+            <div class="dk-grid"><div class="field"><label>Height (m)</label><input type="number" id="cam-height" value="1.6" step="0.1"></div><div class="field"><label>FOV °</label><input type="number" id="cam-fov" value="74" min="30" max="120"></div></div>
+            <div class="lens-row" id="lens-row" title="Lens (full-frame equivalent). Sets the field of view."><button data-mm="16">16mm</button><button data-mm="24">24mm</button><button data-mm="35">35mm</button><button data-mm="50">50mm</button></div>
+            <div class="lens-note" id="lens-note">24 mm: the usual interior shot · 16 mm: whole room, stretched edges · 50 mm: a corner or detail</div>
+            <div class="dk-row" id="cam-floor-row"><label>On floor</label><select id="cam-floor" style="flex:1"></select></div>
             <div class="dk-row"><label>Rotation °</label><button class="icon-btn" id="rot-m" title="Rotate −15°">‹</button><input type="number" id="cam-angle" min="0" max="360" value="0"><button class="icon-btn" id="rot-p" title="Rotate +15°">›</button></div>
             <div class="dk-row"><button class="icon-btn js-undo" title="Undo (Ctrl+Z)" disabled><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M9 14L4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3'/></svg></button><button class="icon-btn js-redo" title="Redo (Ctrl+Y)" disabled><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d='M15 14l5-5-5-5M20 9H9a5 5 0 0 0 0 10h3'/></svg></button><span class="sp"></span><span id="cam-rel-readout" class="mono" style="font-size:10px;color:var(--ink-faint)">0.500, 0.500</span></div>
             <button id="btn-lock-camera" class="btn btn-accent">Confirm camera ✓</button>
             <button id="btn-edit-plan" class="btn btn-ghost btn-small">← Edit plan</button>
         </div></div>
     <div id="dock-labels" class="dock"><div class="dk-title">Check the labels</div>
-        <p>These are our guesses for what is on your plan. Type over a label to rename it, ✕ removes it, and ⠿ drags the tag. For anything missed, add a label and drag a box over it.</p>
-        <button id="lab-add" class="btn btn-small">+ Add a label</button>
+        <p>Type to rename · ✕ removes · ⠿ moves the tag · ↑ turns the way it faces. Missed something? Add a label.</p>
+        <div style="display:flex;gap:6px"><button id="lab-add" class="btn btn-small" style="flex:1" title="Drag a rectangle over the object">+ Box</button><button id="lab-shape" class="btn btn-small" style="flex:1" title="Click around an odd-shaped object; double-click or Enter to finish">+ Shape</button></div>
         <button id="lab-reset" class="btn btn-ghost btn-small">Reset to our guesses</button>
         <button id="lab-confirm" class="btn btn-accent">Save labels ✓</button>
         <button id="lab-render" class="btn btn-small" title="Save the labels and render again right away with the current camera and prompt">Save &amp; render now</button>
@@ -834,7 +900,7 @@ input[type="range"] {
             x: 0,
             y: 0,
             height: 1.6,
-            fov: 75,
+            fov: 74,
             rotation: 0,
             isLocked: false,
             selected: false,
@@ -938,7 +1004,7 @@ input[type="range"] {
     const TIPS = {
         plan: ['Plan', [['Drag edges', 'scale'], ['Top knob', 'turn'], ['Measure', 'exact scale'], ['Ring', 'snapped to a corner'], ['Shift', 'free point / angle'], ['Esc', 'cancel']]],
         cam: ['Camera', [['Drag ✥', 'move'], ['Drag ↻', 'turn · 15° steps'], ['Shift', 'free angle'], ['Arrows', '10 cm'], ['Shift+Arrows', '50 cm'], ['Ctrl+Arrows', '1°'], ['Ctrl+Shift+Arrows', '15°']]],
-        labels: ['Labels', [['Type', 'rename'], ['✕', 'remove'], ['Drag ⠿', 'move tag'], ['+ Add', 'draw a box'], ['□ handle', 'resize'], ['○ knob', 'turn'], ['Shift', 'free angle'], ['Save', 'keep, render later']]],
+        labels: ['Labels', [['Type', 'rename'], ['✕', 'remove'], ['Drag ⠿', 'move tag'], ['↑', 'way it faces'], ['+ Add', 'draw a box'], ['□ handle', 'resize'], ['○ knob', 'turn'], ['Shift', 'free angle'], ['Save', 'keep, render later']]],
         align: ['Align', [['Click', 'corner on this floor'], ['Click', 'same corner below'], ['×2', 'far apart'], ['Shift', 'no snapping']]],
     };
     function showTip(key, force) {
@@ -1434,7 +1500,6 @@ input[type="range"] {
         viewportEl.style.cursor = 'crosshair';
         document.getElementById('scale-apply-row').classList.add('hidden');
         updateStatus('Click the two ends of a known length — the cursor snaps to corners (hold Shift for free)', '#c0503f');
-        showTip('plan');
     }
 
     function stopPicking() {
@@ -1493,6 +1558,20 @@ input[type="range"] {
 
         if (state.labels && state.image.element) {
             const L = state.labels, p = screenToU(ms.x, ms.y), tol = 11 / labUnit().px;
+            if (L.shaping) {                                     // v3.3: polygon in progress
+                const it = L.shaping, f = it.pts[0];
+                if (it.pts.length >= 3 && Math.hypot(p.x - f.x, p.y - f.y) < tol) finishShape();
+                else { it.pts.push({ x: p.x, y: p.y }); syncPolyBox(it); }
+                dragMode = null; e.preventDefault(); return;
+            }
+            if (L.shapeStart) {
+                const item = { id: 'user_' + Date.now(), cls: null, name: '', orig: null, source: 'user', deleted: false,
+                    shape: 'poly', pts: [{ x: p.x, y: p.y }], x: p.x, y: p.y, w: 0, h: 0, rot: 0 };
+                L.items.push(item); L.shapeStart = false; L.shaping = item; L.sel = item;
+                rebuildLabels();
+                updateStatus('Click each corner of the object · double-click, Enter or click the first point to finish · Esc cancels', '#c0503f');
+                dragMode = null; e.preventDefault(); return;
+            }
             if (L.adding) {
                 // drag out a new box (a plain click gives a default-sized one)
                 const item = { id: 'user_' + Date.now(), cls: null, name: '', orig: null, source: 'user', deleted: false,
@@ -1504,15 +1583,23 @@ input[type="range"] {
                 return;
             }
             if (L.sel && !L.sel.deleted) {
-                const hd = boxHandles(L.sel);
-                if (Math.hypot(p.x - hd.rot.x, p.y - hd.rot.y) < tol) { dragMode = 'lab-rot'; return; }
-                if (Math.hypot(p.x - hd.size.x, p.y - hd.size.y) < tol) { dragMode = 'lab-size'; return; }
+                const o = L.sel;
+                if (o.shape === 'poly') {
+                    const k = o.pts.findIndex((q) => Math.hypot(p.x - q.x, p.y - q.y) < tol);
+                    if (k >= 0) { L.vtx = k; dragMode = 'lab-vtx'; return; }
+                } else {
+                    const hd = boxHandles(o);
+                    if (Math.hypot(p.x - hd.rot.x, p.y - hd.rot.y) < tol) { dragMode = 'lab-rot'; return; }
+                    const h8 = sideHandles(o).find((q) => Math.hypot(p.x - q.x, p.y - q.y) < tol);
+                    if (h8) { L.handle = h8; dragMode = 'lab-side'; return; }
+                }
             }
             const hit = L.items.filter((o) => o.source === 'user' && !o.deleted).reverse().find((o) => {
+                if (o.shape === 'poly') return pointInPolyU(p, o.pts);
                 const l = boxLocal(o, p);
                 return Math.abs(l.x) <= o.w / 2 + tol / 2 && Math.abs(l.y) <= o.h / 2 + tol / 2;
             });
-            if (hit) { L.sel = hit; L.grab = { x: p.x - hit.x, y: p.y - hit.y }; dragMode = 'lab-move'; return; }
+            if (hit) { L.sel = hit; L.grab = { x: p.x - hit.x, y: p.y - hit.y }; L.last = { x: p.x, y: p.y }; dragMode = 'lab-move'; return; }
             L.sel = null;
         }
 
@@ -1758,8 +1845,9 @@ input[type="range"] {
         const pill = document.getElementById('credits-pill'), u = acct.user;
         pill.classList.toggle('hidden', !u);
         if (!u) return;
-        pill.textContent = `${u.credits} render${u.credits === 1 ? '' : 's'} left`;
-        pill.classList.toggle('low', u.credits <= 2);
+        updateOwnerUi();
+        pill.textContent = u.unlimited ? 'Unlimited · owner' : `${u.credits} render${u.credits === 1 ? '' : 's'} left`;
+        pill.classList.toggle('low', !u.unlimited && u.credits <= 2);
         document.getElementById('credit-label').textContent = `${u.credits} free render${u.credits === 1 ? '' : 's'} left`;
         document.getElementById('credit-fill').style.width = Math.max(0, Math.min(100, (u.credits / acct.free) * 100)) + '%';
         document.getElementById('btn-signout').classList.remove('hidden');
@@ -1782,6 +1870,7 @@ input[type="range"] {
         go();
     }
     function updateGate() {
+        updateOwnerUi();
         if (!acct.requireInvite) return setGate(false);
         if (!acct.user) {
             const hasInvite = !!store.get('genarch_invite');
@@ -1895,33 +1984,78 @@ input[type="range"] {
     }
 
     // ---------------- Handlers ----------------
-    document.getElementById('image-loader').addEventListener('change', (e) => {
+    // v3.3: PDF / DXF / DWG go to the server first and come back as a clean plan picture
+    async function importPlanFile(file) {
+        const baseUrl = API_BASE_URL || 'http://localhost:5000';
+        updateStatus(`Reading ${file.name}…`, '#c89b4c');
+        const fd = new FormData();
+        fd.append('plan', file, file.name);
+        const r = await fetch(`${baseUrl}/convert`, { method: 'POST', body: fd });
+        const j = await readReply(r, 'Plan import');
+        if (!r.ok) throw new Error(j.error || 'Could not read that file');
+        const blob = await (await fetch(`${baseUrl}${j.image_url}`)).blob();
+        const dataUrl = await new Promise((res) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(blob); });
+        return { dataUrl, meta: j };
+    }
+    function planLoaded(img, file, meta) {
+        state.image.element = img;
+        state.image.file = file;
+        state.image.importId = meta ? meta.import_id : null;
+        state.image.importMeta = meta || null;
+        state.image.importCrop = null;
+        state.snapPoints = [];
+        const target = state.image;
+        setTimeout(() => { withFloor(target, () => { computeSnapPoints(img); target.snap = state.snapPoints; }); if (state.image === target) state.snapPoints = target.snap; }, 30);
+        state.scale.points = [];
+        state.scale.calibrated = false;
+        state.image.width = img.width;
+        state.image.height = img.height;
+        state.image.opacity = 0.5;
+        document.getElementById('img-opacity').value = 0.5;
+        document.getElementById('image-controls').classList.remove('hidden');
+        document.getElementById('upload-container').classList.add('hidden');
+        if (meta && meta.px_per_m) {                       // DXF / DWG: exact scale from the file
+            state.image.scale = PIXELS_PER_METER / meta.px_per_m;
+            state.scale.calibrated = true;
+            updateStatus(`Scale read from the drawing (${meta.units})`, '#2f9e5b');
+            const extra = [];
+            if (meta.blocks) extra.push(`${meta.blocks} named object${meta.blocks > 1 ? 's' : ''}`);
+            if (meta.room_names && meta.room_names.length) extra.push('rooms: ' + meta.room_names.join(', '));
+            if (meta.other_drawings) extra.push(`${meta.other_drawings} other drawing${meta.other_drawings > 1 ? 's' : ''} on the sheet left out`);
+            toast('Drawing read' + (extra.length ? ' · ' + extra.join(' · ') : ''));
+        } else if (meta) {
+            updateStatus(`PDF page ${meta.page} of ${meta.pages} — measure one known length to set the scale`, '#c89b4c');
+        } else {
+            updateStatus('Scale/rotate image via handles', '#c89b4c');
+        }
+        showOpacityHint();
+    }
+    document.getElementById('image-loader').addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (!file) return;
+        e.target.value = '';
+        if (/\.(pdf|dxf|dwg)$/i.test(file.name)) {
+            try {
+                const { dataUrl, meta } = await importPlanFile(file);
+                const img = new Image();
+                img.onload = async () => {
+                    planLoaded(img, file, meta);
+                    await cropCurrentPlan();            // CAD sheets are whole projects: pick the room first
+                };
+                img.src = dataUrl;
+            } catch (err) {
+                updateStatus('⚠️ ' + err.message, '#c0503f');
+                toast(err.message);
+            }
+            return;
+        }
         const reader = new FileReader();
         reader.onload = (evt) => {
             const img = new Image();
-            img.onload = () => {
-                state.image.element = img;
-                state.image.file = file;
-                state.snapPoints = [];
-                const target = state.image;
-                setTimeout(() => { withFloor(target, () => { computeSnapPoints(img); target.snap = state.snapPoints; }); if (state.image === target) state.snapPoints = target.snap; }, 30);
-                state.scale.points = [];
-                state.scale.calibrated = false;
-                state.image.width = img.width;
-                state.image.height = img.height;
-                state.image.opacity = 0.5;
-                document.getElementById('img-opacity').value = 0.5;
-                document.getElementById('image-controls').classList.remove('hidden');
-                document.getElementById('upload-container').classList.add('hidden');
-                updateStatus('Scale/rotate image via handles', '#c89b4c');
-                showOpacityHint();
-            };
+            img.onload = () => { planLoaded(img, file, null); };
             img.src = evt.target.result;
         };
         reader.readAsDataURL(file);
-        e.target.value = '';
     });
 
     let opacityHintTimer = null;
@@ -1966,7 +2100,20 @@ input[type="range"] {
     });
 
     document.getElementById('cam-height').addEventListener('input', (e) => state.camera.height = parseFloat(e.target.value));
-    document.getElementById('cam-fov').addEventListener('input', (e) => state.camera.fov = parseInt(e.target.value));
+    document.getElementById('cam-fov').addEventListener('input', (e) => { state.camera.fov = parseInt(e.target.value); syncLens(); });
+    // v3.3 lens presets: horizontal FOV of a full-frame (36 mm wide) lens
+    const LENS = { 16: 97, 24: 74, 35: 54, 50: 40 };
+    function syncLens() {
+        document.querySelectorAll('#lens-row button').forEach((b) => b.classList.toggle('on', Math.abs(LENS[b.dataset.mm] - state.camera.fov) <= 1));
+    }
+    document.querySelectorAll('#lens-row button').forEach((b) => b.addEventListener('click', () => {
+        state.camera.fov = LENS[b.dataset.mm]; E('cam-fov').value = state.camera.fov; syncLens();
+    }));
+    document.getElementById('plan-more').addEventListener('click', () => {
+        const d = E('dock-plan'); d.classList.toggle('more');
+        E('plan-more').textContent = d.classList.contains('more') ? 'Fewer settings ▴' : 'More settings ▾';
+    });
+    setTimeout(syncLens, 0);
     document.getElementById('cam-angle').addEventListener('input', (e) => state.camera.rotation = parseInt(e.target.value) || 0);
 
     document.getElementById('btn-lock-camera').addEventListener('click', () => {
@@ -2035,7 +2182,7 @@ input[type="range"] {
     const aspect=r=>r.replace(':','/');
     function renderGenerations(){
         const list=document.getElementById('chat-list');
-        let h=`<div class="msg bot"><div class="bubble">Hi! Set up your <b>plan</b> and <b>camera</b> in the tabs below, describe the room, and I’ll render it. Every image gets a ⋯ menu for likes, collections, downloads and edits.</div></div>`;
+        let h=`<div class="msg bot"><div class="bubble">Hi! Set up your <b>plan</b> and <b>camera</b> with the icons on the right, describe the room, and I’ll render it. Every image gets a ⋯ menu for likes, collections, downloads and edits.</div></div>`;
         [...state.generations].reverse().forEach(g=>{
             const i=state.generations.indexOf(g);
             if(g.kind==='labels')h+=`<div class="msg user" data-i="${i}"><div class="bubble edit-in" data-act="relabel" title="Edit these labels"><span>${escapeHtml(g.prompt)}<small>Labels · ${g.time} · click to edit again</small></span></div></div>`;
@@ -2046,7 +2193,7 @@ input[type="range"] {
             else h+=`<div class="msg bot" data-i="${i}">${mileHtml(g)}<div class="media">${g.finalUrl?`<img src="${g.finalUrl}" data-full="${g.finalUrl}" style="aspect-ratio:${aspect(g.resolution)}">`:`<div class="ph">Final pass unavailable</div>`}
               ${g.collections&&g.collections.length?`<div class="tags">${g.collections.map(c=>`<span class="tag">${escapeHtml(c)}</span>`).join('')}</div>`:''}
               <button class="opt" data-act="menu" title="Options">${ICONS.dots}</button>
-              <div class="bar"><button class="icon-btn ${g.liked?'on':''}" data-act="like" title="Like">${g.liked?ICONS.likeOn:ICONS.like}</button><button class="icon-btn" data-act="download" title="Download">${ICONS.download}</button><button class="icon-btn" data-act="coll" title="Add to collection">${ICONS.collection}</button><span class="sp"></span><span class="mt">${g.label||g.resolution}${g.took?' · '+fmtTime(g.took):''}</span></div></div></div>`;
+              <div class="bar"><button class="icon-btn ${g.liked?'on':''}" data-act="like" title="Like">${g.liked?ICONS.likeOn:ICONS.like}</button><button class="icon-btn" data-act="download" title="Download">${ICONS.download}</button><button class="icon-btn" data-act="coll" title="Add to collection">${ICONS.collection}</button>${g.variants&&g.variants.length>1?`<button class="icon-btn" data-act="other" title="Show the other option (free)">${ICONS.reuse}</button><span class="alt-n">${g.variant+1}/${g.variants.length}</span>`:''}${g.payloadId&&g.finalUrl&&!g.buildOnly?`<button class="icon-btn" data-act="glb" title="Download this room as a 3D model (.glb) · uses 2 renders">${ICONS.cube}</button>`:''}<span class="sp"></span><span class="mt">${g.label||g.resolution}${g.took?' · '+fmtTime(g.took):''}</span></div></div>${g.glbMsg||g.glbUrl?`<div class="glb-row">${g.glbMsg?escapeHtml(g.glbMsg):''}${g.glbUrl&&!g.glbMsg?`3D model ready · <a href="${g.glbUrl}" download>download .glb</a>`:''}</div>`:''}${ownerView()?juryHtml(g)+texHtml(g):''}</div>`;
         });
         list.innerHTML=h;list.scrollTop=list.scrollHeight;
     }
@@ -2071,7 +2218,7 @@ input[type="range"] {
         const g=state.generations[i],r=btn.getBoundingClientRect();
         let h='';
         if(sub){h=`<div class="lbl">Add to collection</div>`+state.collections.map(c=>`<button data-act="addc" data-c="${escapeHtml(c)}">${ICONS.collection} ${escapeHtml(c)}${(g.collections||[]).includes(c)?' ✓':''}</button>`).join('')+`<button data-act="newc">${ICONS.plus} New collection…</button>`}
-        else h=`<button data-act="like">${g.liked?ICONS.likeOn:ICONS.like} ${g.liked?'Unlike':'Like'}</button><button data-act="coll">${ICONS.collection} Add to collection</button><button data-act="download" ${g.finalUrl?'':'disabled'}>${ICONS.download} Download image</button><button data-act="edit">${ICONS.edit} Edit with this image</button>${g.labelRoot&&g.labelModel?`<button data-act="relabel">${ICONS.plus} Edit labels</button>`:''}<button data-act="reuse">${ICONS.reuse} Reuse prompt</button><button data-act="blend">${ICONS.cube} Export 3D scene (.blend)</button><hr><button class="dng" data-act="del">${ICONS.del} Delete</button>`;
+        else h=`<button data-act="like">${g.liked?ICONS.likeOn:ICONS.like} ${g.liked?'Unlike':'Like'}</button><button data-act="coll">${ICONS.collection} Add to collection</button><button data-act="download" ${g.finalUrl?'':'disabled'}>${ICONS.download} Download image</button><button data-act="edit">${ICONS.edit} Edit with this image</button>${g.labelRoot&&g.labelModel?`<button data-act="relabel">${ICONS.plus} Edit labels</button>`:''}<button data-act="reuse">${ICONS.reuse} Reuse prompt</button><button data-act="glb">${ICONS.cube} Download 3D model (.glb) · 2 renders</button><hr><button class="dng" data-act="del">${ICONS.del} Delete</button>`;
         menu.innerHTML=h;menu.dataset.i=i;menu.classList.remove('hidden');
         menu.style.top=Math.min(r.bottom+6,innerHeight-menu.offsetHeight-10)+'px';menu.style.left=Math.min(r.left,innerWidth-230)+'px';
     }
@@ -2086,6 +2233,8 @@ input[type="range"] {
         if(a==='relabel'){g.labelRoot&&g.labelModel?openLabels(g,g.labelModel,g.labelItems||null):toast('Labels are not available for this image');return}
         if(a==='reopen'){if(g.editSrc)openEditor(g.editSrc,g.editMask,g.rawPrompt||'');return}
         if(a==='edit'){g.finalUrl?openEditor(g.finalUrl,null,''):toast('No image to edit yet');return}
+        if(a==='other'){if(g.variants&&g.variants.length>1){g.variant=(g.variant+1)%g.variants.length;g.finalUrl=g.variants[g.variant];renderGenerations()}return}
+        if(a==='glb'){exportModel(g);return}
         if(a==='like'){g.liked=!g.liked;renderGenerations()}
         else if(a==='download'){if(g.finalUrl)dl(g.finalUrl,`genarch_render_${i}.png`)}
         else if(a==='blend'){g.sceneBlendUrl?dl(g.sceneBlendUrl,`genarch_scene_${i}.blend`):toast('No 3D scene archived for this render yet.')}
@@ -2127,7 +2276,7 @@ input[type="range"] {
         }
         const camHover = hitCamera({ x: e.clientX, y: e.clientY });
         if (camHover) c = camHover === 'rot' ? 'grab' : 'move';
-        if (state.scale.picking || state.align || (state.labels && state.labels.adding)) c = 'crosshair';
+        if (state.scale.picking || state.align || (state.labels && (state.labels.adding || state.labels.shapeStart || state.labels.shaping))) c = 'crosshair';
         viewportEl.style.cursor = c;
     });
     let hist = [], redoSt = [], lastSnap = null;
@@ -2198,6 +2347,13 @@ input[type="range"] {
     }
     const labelsAvailable = () => !!(state.floors[0].traceId && (state.floors[0].labelModel || []).length);
     let modeSig = '';
+    const MI = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+    const MODE_ICONS = {
+        plan: MI('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h7v9M14 3v6h7"/>'),
+        cam: MI('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),
+        labels: MI('<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8" r="1.4"/>'),
+        go: MI('<path d="M4 20l16-8L4 4l2 8-2 8z"/><path d="M6 12h8"/>'),
+    };
     function syncModeBar() {
         const cur = currentMode(), f0 = state.floors[0];
         const sig = cur + '|' + labelsAvailable() + '|' + !!f0.element + '|' + !!state.labelsUnseen;
@@ -2206,14 +2362,15 @@ input[type="range"] {
         document.querySelectorAll('#mode-bar [data-mode]').forEach((b) => {
             b.classList.toggle('on', b.dataset.mode === cur);
             b.disabled = !f0.element || (b.dataset.mode === 'labels' && !labelsAvailable());
-            b.innerHTML = (b.dataset.mode === 'labels' && state.labelsUnseen ? '<i class="dot"></i>' : '') + { plan: 'Plan', cam: 'Camera', labels: 'Labels', go: 'Prompt' }[b.dataset.mode];
+            b.innerHTML = (b.dataset.mode === 'labels' && state.labelsUnseen ? '<i class="dot"></i>' : '') + MODE_ICONS[b.dataset.mode];
+            b.dataset.tip = { plan: 'Plan', cam: 'Camera', labels: 'Labels', go: 'Prompt' }[b.dataset.mode];
         });
     }
     // Keeps any label edits (without rendering) and closes the label overlay.
     function saveLabels(quiet) {
         const L = state.labels;
         if (!L) return false;
-        state.floors[0].labelItems = L.items.map((o) => { const c = Object.assign({}, o); delete c.el; return c; });
+        state.floors[0].labelItems = L.items.map((o) => { const c = Object.assign({}, o); delete c.el; if (c.pts) c.pts = c.pts.map((q) => ({ ...q })); return c; });
         hideLabels();
         if (!quiet) toast('Labels saved — your next render uses them');
         return true;
@@ -2272,7 +2429,7 @@ input[type="range"] {
 
     function placeDock(d, x, y) {
         const w = d.offsetWidth, h = d.offsetHeight;
-        d.style.left = Math.max(chatW + 30, Math.min(x, innerWidth - w - 14)) + 'px';
+        d.style.left = Math.max(chatW + 30, Math.min(x, innerWidth - w - 64)) + 'px';
         d.style.top = Math.max(112, Math.min(y - h / 2, innerHeight - h - 14)) + 'px';
     }
     function updateDock() {
@@ -2292,9 +2449,8 @@ input[type="range"] {
         E('dock-labels').classList.toggle('on', !!state.labels);
         positionLabels();
         syncModeBar();
-        if (pl.classList.contains('on') && !updateDock.planTip) { updateDock.planTip = true; showTip('plan'); }
-        if (ca.classList.contains('on') && !cam.isLocked && !updateDock.camTip) { updateDock.camTip = true; showTip('cam'); }
-        if (state.labels && !updateDock.labTip) { updateDock.labTip = true; showTip('labels'); }
+        // v3.3: tips only open from the ? on the rail
+        E('cam-floor-row') && E('cam-floor-row').classList.toggle('hidden', state.floors.filter((f) => f.element).length < 2);
         if (pl.classList.contains('on')) {
             const pos = worldToScreen(im.x, im.y), z = state.viewport.zoom, w = im.width * im.scale * z, h = im.height * im.scale * z;
             let minX = 1e9, maxX = -1e9;
@@ -2691,7 +2847,7 @@ input[type="range"] {
                 : `The server hit an error during "${what}" (code ${r.status}). Check the server window for the message.`);
         }
     }
-    const floorSig = (f) => (f.file ? `${f.file.name}|${f.file.size}|${f.width}x${f.height}` : '');
+    const floorSig = (f) => (f.file ? `${f.file.name}|${f.file.size}|${f.width}x${f.height}|${JSON.stringify(f.importCrop || null)}` : '');
     const floorMeters = (f) => (Math.max(f.width, f.height) * f.scale) / PIXELS_PER_METER;
 
     // Steps 1-3 for one floor. Skipped when that same image was already read.
@@ -2701,6 +2857,8 @@ input[type="range"] {
         const fd = new FormData();
         fd.append('image', sq.blob, 'floorplan_square.png');
         fd.append('canvas_meters', floorMeters(f).toFixed(4));
+        if (f.importId) fd.append('import_id', f.importId);
+        if (f.importId && f.importCrop) fd.append('import_crop', JSON.stringify(f.importCrop));
         fd.append('user_id', currentUser.id || 'guest_user');
         const r = await fetch(`${BASE()}/trace`, { method: 'POST', body: fd });
         const j = await readReply(r, 'read plan');
@@ -2749,6 +2907,116 @@ input[type="range"] {
         return spec;
     }
 
+    // ---------------- v3.3: crop to one room ----------------
+    function openCrop(img, ppm) {
+        return new Promise((resolve) => {
+            const M = E('crop-modal'), cv = E('crop-canvas'), cx = cv.getContext('2d');
+            const fit = Math.min((innerWidth * 0.86) / img.width, (innerHeight * 0.62) / img.height, 1);
+            cv.width = Math.round(img.width * fit); cv.height = Math.round(img.height * fit);
+            let r = { x: 0, y: 0, w: img.width, h: img.height }, drag = null;
+            const toImg = (e) => { const b = cv.getBoundingClientRect(); return { x: (e.clientX - b.left) / b.width * img.width, y: (e.clientY - b.top) / b.height * img.height }; };
+            const handles = () => { const out = []; for (const sx of [-1, 0, 1]) for (const sy of [-1, 0, 1]) if (sx || sy) out.push({ sx, sy, x: r.x + (sx + 1) / 2 * r.w, y: r.y + (sy + 1) / 2 * r.h }); return out; };
+            function info() {
+                const el = E('crop-info');
+                if (ppm) {
+                    const w = r.w / ppm, h = r.h / ppm, a = w * h;
+                    el.textContent = `Selected area: ${w.toFixed(1)} m × ${h.toFixed(1)} m (${a.toFixed(0)} m²)`;
+                    el.classList.toggle('warn', a > 200);                 // quiet hint only for very large picks
+                } else {
+                    el.textContent = 'Selected area: ' + Math.round((r.w * r.h) / (img.width * img.height) * 100) + '% of the drawing';
+                    el.classList.remove('warn');
+                }
+            }
+            function draw() {
+                cx.clearRect(0, 0, cv.width, cv.height);
+                cx.drawImage(img, 0, 0, cv.width, cv.height);
+                cx.fillStyle = 'rgba(30,34,48,.45)';
+                const k = fit, X = r.x * k, Y = r.y * k, W = r.w * k, H = r.h * k;
+                cx.fillRect(0, 0, cv.width, Y); cx.fillRect(0, Y + H, cv.width, cv.height - Y - H);
+                cx.fillRect(0, Y, X, H); cx.fillRect(X + W, Y, cv.width - X - W, H);
+                cx.strokeStyle = '#c89b4c'; cx.lineWidth = 2; cx.strokeRect(X, Y, W, H);
+                cx.fillStyle = '#fff';
+                handles().forEach((q) => { cx.beginPath(); cx.rect(q.x * k - 5, q.y * k - 5, 10, 10); cx.fill(); cx.stroke(); });
+                info();
+            }
+            cv.onmousedown = (e) => {
+                const p = toImg(e), tol = 9 / fit;
+                const h = handles().find((q) => Math.abs(q.x - p.x) < tol && Math.abs(q.y - p.y) < tol);
+                if (h) drag = { kind: 'side', h };
+                else if (r.w * r.h < 0.97 * img.width * img.height && p.x > r.x && p.x < r.x + r.w && p.y > r.y && p.y < r.y + r.h) drag = { kind: 'move', dx: p.x - r.x, dy: p.y - r.y };
+                else { drag = { kind: 'new', x0: p.x, y0: p.y }; r = { x: p.x, y: p.y, w: 1, h: 1 }; }
+            };
+            window.addEventListener('mousemove', move);
+            window.addEventListener('mouseup', up);
+            function move(e) {
+                if (!drag) return;
+                const p = toImg(e), clampX = (v) => Math.max(0, Math.min(img.width, v)), clampY = (v) => Math.max(0, Math.min(img.height, v));
+                if (drag.kind === 'move') {
+                    r.x = Math.max(0, Math.min(img.width - r.w, p.x - drag.dx)); r.y = Math.max(0, Math.min(img.height - r.h, p.y - drag.dy));
+                } else if (drag.kind === 'new') {
+                    const x = clampX(p.x), y = clampY(p.y);
+                    r = { x: Math.min(x, drag.x0), y: Math.min(y, drag.y0), w: Math.abs(x - drag.x0), h: Math.abs(y - drag.y0) };
+                } else {
+                    let x0 = r.x, x1 = r.x + r.w, y0 = r.y, y1 = r.y + r.h; const h = drag.h;
+                    if (h.sx < 0) x0 = Math.min(clampX(p.x), x1 - 20); if (h.sx > 0) x1 = Math.max(clampX(p.x), x0 + 20);
+                    if (h.sy < 0) y0 = Math.min(clampY(p.y), y1 - 20); if (h.sy > 0) y1 = Math.max(clampY(p.y), y0 + 20);
+                    r = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+                }
+                draw();
+            }
+            function up() { drag = null; }
+            function done(result) {
+                window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up);
+                M.classList.add('hidden'); resolve(result);
+            }
+            E('crop-all').onclick = () => done(null);
+            E('crop-ok').onclick = () => {
+                if (r.w < 40 || r.h < 40 || (r.w >= img.width - 1 && r.h >= img.height - 1)) return done(null);
+                const R = { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.w), h: Math.round(r.h) };
+                const c = document.createElement('canvas'); c.width = R.w; c.height = R.h;
+                const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, R.w, R.h);
+                g.drawImage(img, R.x, R.y, R.w, R.h, 0, 0, R.w, R.h);
+                const out = new Image();
+                out.onload = () => done({ img: out, crop: R });
+                out.src = c.toDataURL('image/png');
+            };
+            M.classList.remove('hidden');
+            draw();
+        });
+    }
+    async function cropCurrentPlan() {
+        const f = state.image;
+        if (!f.element) return;
+        const ppm = f.scale ? PIXELS_PER_METER / f.scale : null;
+        const res = await openCrop(f.element, state.scale.calibrated || f.importId ? ppm : null);
+        if (!res) return;
+        const prev = f.importCrop || { x: 0, y: 0 };
+        const keepScale = f.scale, keepCal = state.scale.calibrated, keepMeta = f.importMeta;
+        planLoaded(res.img, f.file, keepMeta || null);
+        f.scale = keepScale; state.scale.calibrated = keepCal;
+        f.importCrop = { x: prev.x + res.crop.x, y: prev.y + res.crop.y, w: res.crop.w, h: res.crop.h };
+        toast('Cropped to the selected area');
+        updateStatus(keepCal ? 'Cropped · scale kept' : 'Cropped · measure one known length to set the scale', keepCal ? '#2f9e5b' : '#c89b4c');
+    }
+    E('btn-crop').addEventListener('click', cropCurrentPlan);
+
+    // v3.3 owner view: what the judges said, and the textures made for the 3D model
+    function ownerView() { return !acct.requireInvite || !!(acct.user && acct.user.unlimited); }
+    function juryHtml(g) {
+        if (!g.jury || !g.jury.length) return '';
+        const pct = (v) => (v == null ? '–' : Math.round(v * 100) + '%');
+        const rows = g.jury.map((c, k) => {
+            const js = Object.entries(c.judges || {}).map(([n, j]) => `<li><b>${escapeHtml(n)}</b> ${pct(j.score)}${j.why ? ' · ' + escapeHtml(j.why) : ''}</li>`).join('');
+            return `<div class="jr"><b>${k === 0 ? 'Picked' : 'Option ' + (k + 1)}</b> · score ${pct(c.score)} · lines kept ${pct(c.lines_kept)} · invented lines ${c.invented == null ? '–' : (+c.invented).toFixed(1)} · panel ${pct(c.panel)}<ul>${js}</ul></div>`;
+        }).join('');
+        return `<details class="owner-box"><summary>Judges (owner) · ${g.jury.length} candidate${g.jury.length > 1 ? 's' : ''}</summary>${rows}</details>`;
+    }
+    function texHtml(g) {
+        if (!g.textures || !g.textures.length) return '';
+        const cells = g.textures.map((t) => `<figure>${t.url ? `<a href="${t.url}" target="_blank"><img src="${t.url}"></a>` : `<i style="background:rgb(${(t.color || [0.8, 0.8, 0.8]).map((v) => Math.round(v * 255)).join(',')})"></i>`}<figcaption>${escapeHtml(t.group)} · ${escapeHtml(t.source || '')}${t.tile_m ? ' · ' + t.tile_m + ' m' : ''}${t.material ? '<br>' + escapeHtml(t.material) : ''}</figcaption></figure>`).join('');
+        return `<details class="owner-box" open><summary>3D model textures (owner)${g.exportFolder ? ' · ' + escapeHtml(g.exportFolder) : ''}</summary><div class="tex-grid">${cells}</div></details>`;
+    }
+
     async function startRender(opts) {
         const floors = state.floors.filter((f) => f.element);
         if (!state.floors[0].element) return alert('Upload a floor plan image first!');
@@ -2773,6 +3041,7 @@ input[type="range"] {
                 prompt: opts.rawPrompt != null ? opts.rawPrompt : opts.prompt, resolution: state.resolution,
                 user_id: currentUser.id || 'guest_user', camera: cameraSpec(f0), floors: floors.map((f, i) => floorSpec(f, f0, i))
             };
+            if (opts.buildOnly) spec.build_only = true;
             spec.prompt_missing = pgMissing(spec.prompt);
             if (state.project.asked) spec.answers = state.project.answers;   // quick questions are asked once per plan
             state.project.asked = true;
@@ -2800,6 +3069,14 @@ input[type="range"] {
     }
 
     document.getElementById('btn-generate').addEventListener('click', () => startRender({ prompt: E('prompt-text').value || '' }));
+    E('btn-build3d').addEventListener('click', () => {
+        if (!state.floors[0].element) return toast('Upload a floor plan first');
+        startRender({ prompt: E('prompt-text').value || '', keepComposer: true, buildOnly: true, extra: { label: '3D build only', buildOnly: true } });
+    });
+    function updateOwnerUi() {
+        const owner = !acct.requireInvite || !!(acct.user && acct.user.unlimited);
+        E('btn-build3d').classList.toggle('hidden', !owner);
+    }
 
     // ---------------- Following a generation ----------------
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -2812,10 +3089,65 @@ input[type="range"] {
             viewportUrl: st.viewport_render_url ? `${baseUrl}${st.viewport_render_url}?t=${t}` : null,
             finalUrl: st.final_image_url ? `${baseUrl}${st.final_image_url}?t=${t}` : null,
             sceneBlendUrl: st.scene_blend_url ? `${baseUrl}${st.scene_blend_url}?t=${t}` : null,
+            variants: [st.final_image_url, ...(st.alternates || [])].filter(Boolean).map((u) => `${baseUrl}${u}?t=${t}`),
+            variant: 0,
+            jury: st.jury || [],
         });
+        if (st.build_only) {
+            gen.buildOnly = true;
+            gen.glbMsg = `Built in Blender (no render, no credit) · open ${st.folder || 'the payload folder'} → scene.blend`;
+        }
+        // v3.3: the server may have moved the camera to get a clear view
+        const cc = st.camera_check;
+        if (cc && cc.moved_m && cc.rel_x != null) {
+            moveCameraToRel(+cc.rel_x, +cc.rel_y);
+            toast(`Camera moved ${cc.moved_m} m to get a clear view`);
+        }
         renderGenerations();
         refreshMe();
         updateStatus(st.final_image_url ? 'Final render ready.' : 'Viewport rendered; final pass unavailable.', st.final_image_url ? '#2f9e5b' : '#c89b4c');
+    }
+
+    function moveCameraToRel(rx, ry) {
+        const f0 = state.floors[0];
+        if (!f0 || !f0.element) return;
+        const w = f0.width * f0.scale, h = f0.height * f0.scale, m = Math.max(f0.width, f0.height);
+        const relX = (rx * m - (m - f0.width) / 2) / f0.width, relY = (ry * m - (m - f0.height) / 2) / f0.height;
+        state.camera.x = f0.x - w / 2 + relX * w;
+        state.camera.y = f0.y - h / 2 + relY * h;
+    }
+
+    // v3.3: 3D model download. Runs on the server alongside renders.
+    async function exportModel(gen) {
+        if (gen.glbPending) return;
+        const baseUrl = API_BASE_URL || 'http://localhost:5000';
+        gen.glbPending = true; gen.glbMsg = 'Building your 3D model… you can keep rendering meanwhile'; renderGenerations();
+        try {
+            const fd = new FormData();
+            fd.append('image', gen.variant ? `alt${gen.variant}` : 'final');
+            const r = await fetch(`${baseUrl}/export/${gen.payloadId}`, { method: 'POST', body: fd });
+            const j = await r.json();
+            if (!r.ok) throw new Error(j.error || 'Could not start the 3D model');
+            while (true) {
+                await sleep(2500);
+                const s = await fetch(`${baseUrl}/status/${j.export_id}`), st = await s.json();
+                if (st.stage === 'error') throw new Error(st.error || '3D model failed');
+                if (st.stage === 'done') {
+                    gen.glbUrl = `${baseUrl}${st.glb_url}?t=${Date.now()}`;
+                    gen.textures = (st.textures || []).map((t) => (t.url ? { ...t, url: `${baseUrl}${t.url}` } : t));
+                    gen.exportFolder = st.folder || null;
+                    break;
+                }
+                if (st.message && st.message !== gen.glbMsg) { gen.glbMsg = st.message + '…'; renderGenerations(); }
+            }
+            gen.glbMsg = null;
+            toast('3D model ready');
+            dl(gen.glbUrl, `genarch_room_${gen.payloadId}.glb`);
+        } catch (err) {
+            gen.glbMsg = '⚠️ ' + err.message;
+        } finally {
+            gen.glbPending = false; renderGenerations(); refreshMe();
+        }
     }
 
     async function pollJob(gen) {
@@ -2875,12 +3207,14 @@ input[type="range"] {
     const labelPayload = (items) => items
         .filter((o) => !(o.source === 'user' && o.deleted))
         .map((o) => ({ id: o.id, name: (o.name || '').trim() || (o.source === 'user' ? 'Object' : o.orig || ''),
-            x: o.x, y: o.y, w: o.w || 0, h: o.h || 0, rot: o.rot || 0, source: o.source, deleted: !!o.deleted }));
+            x: o.x, y: o.y, w: o.w || 0, h: o.h || 0, rot: o.rot || 0, source: o.source, deleted: !!o.deleted,
+            facing: o.facing == null ? null : o.facing, fixed: typeof o.fixed === 'boolean' ? o.fixed : undefined,
+            pts: o.shape === 'poly' && o.pts ? o.pts.map((q) => [+q.x.toFixed(5), +q.y.toFixed(5)]) : undefined }));
 
     function openLabels(gen, model, items) {
         state.labels = {
             gen, rootId: gen.labelRoot, model,
-            items: items ? items.map((o) => Object.assign({}, o)) : freshLabels(model),
+            items: items ? items.map((o) => { const c = Object.assign({}, o); if (c.pts) c.pts = c.pts.map((q) => ({ ...q })); return c; }) : freshLabels(model),
             adding: false, sel: null, grab: null
         };
         rebuildLabels();
@@ -2916,7 +3250,17 @@ input[type="range"] {
                 tagDrag = { o, sx: ev.clientX, sy: ev.clientY, x: o.x, y: o.y, ox: o.ox || 0, oy: o.oy || 0 };
             });
             d.append(g, inp);
-            if (o.source === 'user') {
+            const NOFACE = ['table', 'rug', 'object', 'column', 'shower', 'window', 'door'];
+            if (o.facing != null || (o.source === 'user') || (o.cls && !NOFACE.includes(o.cls))) {
+                const f = document.createElement('button');
+                f.className = 'face'; f.textContent = '↑';
+                f.title = 'Front faces this way · click to turn 90°';
+                const show = () => { f.style.transform = `rotate(${(o.facing || 0) + (state.image.rotation || 0)}deg)`; };
+                f.addEventListener('click', (ev) => { o.facing = (((o.facing == null ? 0 : o.facing) + (ev.shiftKey ? -90 : 90)) % 360 + 360) % 360; show(); });
+                show();
+                d.append(f);
+            }
+            if (o.source === 'user' && o.shape !== 'poly') {
                 const r = document.createElement('button');
                 r.textContent = '↻'; r.title = 'Turn 15° (Shift: 5°)';
                 r.addEventListener('click', (ev) => { o.rot = (((o.rot || 0) + (ev.shiftKey ? 5 : 15)) % 360 + 360) % 360; state.labels.sel = o; });
@@ -2947,7 +3291,52 @@ input[type="range"] {
     function boxLocal(o, p) { return rotatePoint(p.x - o.x, p.y - o.y, 0, 0, -(o.rot || 0)); }
     function boxPoint(o, lx, ly) { const r = rotatePoint(lx, ly, 0, 0, o.rot || 0); return { x: o.x + r.x, y: o.y + r.y }; }
     function boxHandles(o) { return { size: boxPoint(o, o.w / 2, o.h / 2), rot: boxPoint(o, 0, -o.h / 2 - 24 / labUnit().px) }; }
-    function boxCorners(o) { return [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([a, b]) => { const p = boxPoint(o, a * o.w / 2, b * o.h / 2); return uToScreen(p.x, p.y); }); }
+    // v3.3: eight handles (corners + side midpoints); each moves only its own sides
+    function sideHandles(o) {
+        const out = [];
+        for (const sx of [-1, 0, 1]) for (const sy of [-1, 0, 1]) {
+            if (!sx && !sy) continue;
+            const q = boxPoint(o, sx * o.w / 2, sy * o.h / 2);
+            out.push({ x: q.x, y: q.y, sx, sy });
+        }
+        return out;
+    }
+    function syncPolyBox(o) {
+        const xs = o.pts.map((q) => q.x), ys = o.pts.map((q) => q.y);
+        const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+        o.x = (x0 + x1) / 2; o.y = (y0 + y1) / 2; o.w = x1 - x0; o.h = y1 - y0; o.rot = 0;
+    }
+    function pointInPolyU(p, pts) {
+        let hit = false;
+        for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+            const a = pts[i], b = pts[j];
+            if ((a.y > p.y) !== (b.y > p.y) && p.x < ((b.x - a.x) * (p.y - a.y)) / (b.y - a.y) + a.x) hit = !hit;
+        }
+        return hit;
+    }
+    function finishShape(cancel) {
+        const L = state.labels; if (!L || !L.shaping) return;
+        const it = L.shaping, tol = 4 / labUnit().px;
+        it.pts = it.pts.filter((q, k) => !k || Math.hypot(q.x - it.pts[k - 1].x, q.y - it.pts[k - 1].y) > tol);
+        L.shaping = null;
+        if (cancel || it.pts.length < 3) { L.items = L.items.filter((o) => o !== it); L.sel = null; rebuildLabels(); updateStatus('Shape cancelled', '#c0503f'); return; }
+        syncPolyBox(it);
+        rebuildLabels();
+        updateStatus('Shape added — name it', '#2f9e5b');
+        setTimeout(() => { const inp = it.el && it.el.querySelector('input'); if (inp) inp.focus(); }, 0);
+    }
+    document.addEventListener('keydown', (e) => {
+        const L = state.labels;
+        if (!L || !(L.shaping || L.shapeStart)) return;
+        if (e.key === 'Enter') { e.preventDefault(); finishShape(); }
+        if (e.key === 'Escape') { L.shapeStart = false; finishShape(true); }
+    });
+    canvas.addEventListener('dblclick', () => { if (state.labels && state.labels.shaping) finishShape(); });
+    function boxCorners(o) {
+        if (o.shape === 'poly') {
+            const sc = o.pts.map((q) => uToScreen(q.x, q.y)), xs = sc.map((q) => q.x), ys = sc.map((q) => q.y);
+            return [{ x: Math.min(...xs), y: Math.min(...ys) }, { x: Math.max(...xs), y: Math.min(...ys) }, { x: Math.max(...xs), y: Math.max(...ys) }, { x: Math.min(...xs), y: Math.max(...ys) }];
+        } return [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([a, b]) => { const p = boxPoint(o, a * o.w / 2, b * o.h / 2); return uToScreen(p.x, p.y); }); }
 
     function positionLabels() {
         if (!state.labels || !state.image.element) return;
@@ -2977,7 +3366,18 @@ input[type="range"] {
             ctx.fillStyle = '#c89b4c'; ctx.beginPath(); ctx.arc(a.x, a.y, 3.5, 0, Math.PI * 2); ctx.fill();
         });
         L.items.forEach((o) => {
-            if (o.source !== 'user' || o.deleted) return;
+            if (o.source !== 'user' || o.deleted || o.shape !== 'poly') return;
+            const sc = o.pts.map((q) => uToScreen(q.x, q.y)), sel = L.sel === o;
+            ctx.beginPath();
+            sc.forEach((q, k) => (k ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y)));
+            if (L.shaping !== o) ctx.closePath();
+            if (L.shaping !== o) { ctx.fillStyle = 'rgba(192, 80, 63, 0.16)'; ctx.fill(); }
+            ctx.strokeStyle = '#c0503f'; ctx.lineWidth = sel ? 2 : 1.4; ctx.setLineDash(sel ? [] : [5, 4]); ctx.stroke(); ctx.setLineDash([]);
+            if (!sel) return;
+            sc.forEach((q, k) => { ctx.fillStyle = k === 0 && L.shaping === o ? '#c0503f' : '#fff'; ctx.beginPath(); ctx.arc(q.x, q.y, 4.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
+        });
+        L.items.forEach((o) => {
+            if (o.source !== 'user' || o.deleted || o.shape === 'poly') return;
             const c = boxCorners(o), sel = L.sel === o;
             ctx.beginPath();
             c.forEach((q, k) => (k ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y)));
@@ -2991,12 +3391,12 @@ input[type="range"] {
             ctx.setLineDash([]);
             if (!sel) return;
             const hd = boxHandles(o), top = boxPoint(o, 0, -o.h / 2);
-            const sz = uToScreen(hd.size.x, hd.size.y), rt = uToScreen(hd.rot.x, hd.rot.y), tp = uToScreen(top.x, top.y);
+            const rt = uToScreen(hd.rot.x, hd.rot.y), tp = uToScreen(top.x, top.y);
             ctx.beginPath(); ctx.moveTo(tp.x, tp.y); ctx.lineTo(rt.x, rt.y); ctx.stroke();
             ctx.fillStyle = '#c0503f';
             ctx.beginPath(); ctx.arc(rt.x, rt.y, 7, 0, Math.PI * 2); ctx.fill();
             ctx.fillStyle = '#fff';
-            ctx.beginPath(); ctx.rect(sz.x - 5, sz.y - 5, 10, 10); ctx.fill(); ctx.stroke();
+            sideHandles(o).forEach((q) => { const s2 = uToScreen(q.x, q.y); ctx.beginPath(); ctx.rect(s2.x - 4.5, s2.y - 4.5, 9, 9); ctx.fill(); ctx.stroke(); });
         });
         ctx.restore();
     }
@@ -3008,6 +3408,20 @@ input[type="range"] {
         if (dragMode === 'lab-draw') {
             o.x = (o.x0 + p.x) / 2; o.y = (o.y0 + p.y) / 2;
             o.w = Math.abs(p.x - o.x0); o.h = Math.abs(p.y - o.y0);
+        } else if (dragMode === 'lab-move' && o.shape === 'poly') {
+            const dx = p.x - L.last.x, dy = p.y - L.last.y;
+            o.pts.forEach((q) => { q.x += dx; q.y += dy; }); L.last = { x: p.x, y: p.y }; syncPolyBox(o);
+        } else if (dragMode === 'lab-vtx') {
+            o.pts[L.vtx] = { x: p.x, y: p.y }; syncPolyBox(o);
+        } else if (dragMode === 'lab-side') {
+            const l = boxLocal(o, p), h = L.handle, min = 0.004;
+            let x0 = -o.w / 2, x1 = o.w / 2, y0 = -o.h / 2, y1 = o.h / 2;
+            if (h.sx > 0) x1 = Math.max(x0 + min, l.x);
+            if (h.sx < 0) x0 = Math.min(x1 - min, l.x);
+            if (h.sy > 0) y1 = Math.max(y0 + min, l.y);
+            if (h.sy < 0) y0 = Math.min(y1 - min, l.y);
+            const c = boxPoint(o, (x0 + x1) / 2, (y0 + y1) / 2);
+            o.w = x1 - x0; o.h = y1 - y0; o.x = c.x; o.y = c.y;
         } else if (dragMode === 'lab-move') {
             o.x = p.x - L.grab.x; o.y = p.y - L.grab.y;
         } else if (dragMode === 'lab-size') {
@@ -3039,8 +3453,14 @@ input[type="range"] {
         return 'Labels: ' + (parts.join(', ') || 'as guessed');
     }
 
+    E('lab-shape').addEventListener('click', () => {
+        if (!state.labels) return;
+        state.labels.adding = false; state.labels.shapeStart = true;
+        updateStatus('Click the first corner of the object', '#c0503f');
+    });
     E('lab-add').addEventListener('click', () => {
         if (!state.labels) return;
+        state.labels.shapeStart = false;
         state.labels.adding = true;
         updateStatus('Drag a box over the object you want to add', '#c0503f');
     });
@@ -3068,5 +3488,11 @@ input[type="range"] {
     resizeCanvas();
     requestAnimationFrame(draw);
 </script>
+<div id="crop-modal" class="hidden"><div id="crop-card">
+    <h3>Pick the room to render</h3>
+    <p class="why">The renders work best on one room, or a small group of rooms. A bigger area spreads the model's attention over walls and furniture your camera will never see, and small details in your room get missed. Drag a box around the room you want, then move it or pull its edges and corners to adjust.</p>
+    <canvas id="crop-canvas"></canvas>
+    <div class="row"><span id="crop-info" style="margin-right:auto"></span><button id="crop-all" class="btn btn-small">Use the whole drawing</button><button id="crop-ok" class="btn btn-small btn-accent">Use this area</button></div>
+</div></div>
 </body>
 </html>
