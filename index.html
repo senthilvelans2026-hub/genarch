@@ -582,7 +582,7 @@ input[type="range"] {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
-/* ===== v3.5 compact layout: the grid and the chat lead, everything else is small ===== */
+/* ===== v3.6 compact layout: the grid and the chat lead, everything else is small ===== */
 #hint-overlay{display:none!important}
 #steps{display:none!important}
 #status-pill{padding:5px 11px;font-size:11px;gap:7px}
@@ -618,7 +618,7 @@ input[type="range"] {
 #dock-labels p{font-size:10.5px;line-height:1.4}
 #dock-labels p:last-of-type{display:none}
 .file-upload-sub{display:block;font-size:10.5px;color:var(--ink-faint);max-width:250px;text-align:center;line-height:1.4;margin-top:4px}
-/* v3.5 crop to one room */
+/* v3.6 crop to one room */
 #crop-modal{position:fixed;inset:0;z-index:80;background:rgba(24,26,34,.55);display:flex;align-items:center;justify-content:center}
 #crop-modal.hidden{display:none}
 #crop-card{background:var(--paper,#fff);border-radius:18px;padding:16px 18px 14px;box-shadow:0 20px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:10px;max-width:92vw}
@@ -661,7 +661,7 @@ input[type="range"] {
     <div id="tip" class="hidden"></div>
     <div id="lab-banner" class="hidden"><span id="lab-banner-text">Labels are ready</span><button id="lab-banner-go">Review labels</button><button class="x" id="lab-banner-x" title="Dismiss">✕</button></div>
     <aside id="chat">
-        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v3.5</span></div><span class="sp"></span>
+        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v3.6</span></div><span class="sp"></span>
             <button id="btn-reset" class="btn btn-ghost btn-small" title="Start over"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg> Reset</button></div>
         <div id="chat-list"></div>
         <div id="composer">
@@ -691,6 +691,7 @@ input[type="range"] {
             <div class="dk-row opacity-hint-wrap"><label>Opacity</label><input type="range" id="img-opacity" min="0.1" max="1" step="0.05" value="0.5"><div id="opacity-hint" class="opacity-hint">Drag to adjust opacity</div></div>
             <div class="dk-grid"><div class="field"><label>X</label><input type="number" id="img-x" step="1"></div><div class="field"><label>Y</label><input type="number" id="img-y" step="1"></div><div class="field"><label>Scale</label><input type="number" id="img-scale" step="0.01"></div><div class="field"><label>Rotate °</label><input type="number" id="img-rotation" step="1"></div></div>
             <button id="btn-crop" class="btn btn-small" title="Keep only the room you want to render">Crop to a room</button>
+            <button id="btn-remove-plan" class="btn btn-ghost btn-small" title="Remove this plan to upload another (or click the plan and press Delete). Ctrl+Z brings it back.">Remove plan</button>
             <button type="button" class="dk-more" id="plan-more">More settings ▾</button>
             <button id="btn-pick-scale" class="btn btn-small" title="Click two points with a known distance between them">Measure a known length</button>
             <button id="btn-align" class="btn btn-small hidden" title="Click a point on this floor, then the same point on the floor below. Do it for two points.">Align with the floor below</button>
@@ -1558,7 +1559,7 @@ input[type="range"] {
 
         if (state.labels && state.image.element) {
             const L = state.labels, p = screenToU(ms.x, ms.y), tol = 11 / labUnit().px;
-            if (L.shaping) {                                     // v3.5: polygon in progress
+            if (L.shaping) {                                     // v3.6: polygon in progress
                 const it = L.shaping, f = it.pts[0];
                 if (it.pts.length >= 3 && Math.hypot(p.x - f.x, p.y - f.y) < tol) finishShape();
                 else { it.pts.push({ x: p.x, y: p.y }); syncPolyBox(it); }
@@ -1628,12 +1629,12 @@ input[type="range"] {
             const w = img.width * img.scale * state.viewport.zoom;
             const h = img.height * img.scale * state.viewport.zoom;
 
-            const hh = hitHandle(ms); if (hh) { if (hh.type === 'rot') dragMode = 'img-rotate'; else { dragMode = 'img-scale'; scaleH = hh; } return; }
+            const hh = hitHandle(ms); if (hh) { img.selected = true; if (hh.type === 'rot') dragMode = 'img-rotate'; else { dragMode = 'img-scale'; scaleH = hh; } return; }
 
             const iDist = Math.hypot(mw.x - img.x, mw.y - img.y);
-            if (iDist < (img.width * img.scale) / 2) { dragMode = 'img-move'; return; }
+            if (iDist < (img.width * img.scale) / 2) { img.selected = true; dragMode = 'img-move'; return; }
         }
-
+        state.image.selected = false;
         dragMode = 'pan';
     });
 
@@ -1897,7 +1898,7 @@ input[type="range"] {
             showCredits();
         } catch (_) {}
     }
-    const PAGE_VERSION = '3.5';
+    const PAGE_VERSION = '3.6';
     (async function startAccounts() {
         await configReady;
         if (!onServer && !API_BASE_URL) { setGate(true, 'The studio is offline right now. Please try again later.'); return; }
@@ -1905,9 +1906,9 @@ input[type="range"] {
             const r = await rawFetch(`${serverBase()}/api/config`);
             const j = await r.json();
             acct.requireInvite = !!j.require_invite; acct.free = j.free_renders || 10;
-            // v3.5: say plainly when this page and the server are different versions
+            // v3.6: say plainly when this page and the server are different versions
             if (j.version !== PAGE_VERSION) {
-                const msg = `Version mismatch: this page is v${PAGE_VERSION}, the server is v${j.version || 'older than 3.5'}. ` +
+                const msg = `Version mismatch: this page is v${PAGE_VERSION}, the server is v${j.version || 'older than 3.6'}. ` +
                     (j.version && j.version > PAGE_VERSION ? 'Upload the new index.html to GitHub, then press Ctrl+Shift+R.' : 'Copy the new server files into your project folder and restart start_server.bat.');
                 updateStatus(msg, '#c0503f'); setTimeout(() => toast(msg), 800);
             }
@@ -1991,7 +1992,7 @@ input[type="range"] {
     }
 
     // ---------------- Handlers ----------------
-    // v3.5: PDF / DXF / DWG go to the server first and come back as a clean plan picture
+    // v3.6: PDF / DXF / DWG go to the server first and come back as a clean plan picture
     async function importPlanFile(file) {
         const baseUrl = API_BASE_URL || 'http://localhost:5000';
         updateStatus(`Reading ${file.name}…`, '#c89b4c');
@@ -2005,11 +2006,12 @@ input[type="range"] {
         return { dataUrl, meta: j };
     }
     function planLoaded(img, file, meta) {
+        if (typeof planBin !== 'undefined' && planBin && planBin.f === state.image) planBin = null;
         state.image.element = img;
         state.image.file = file;
         state.image.importId = meta ? meta.import_id : null;
         state.image.importMeta = meta || null;
-        state.image.importCrop = null;
+        state.image.importCrop = null; state.image.importSub = null;
         state.image.versions = null; state.image.ver = 0;
         state.snapPoints = [];
         const target = state.image;
@@ -2109,7 +2111,7 @@ input[type="range"] {
 
     document.getElementById('cam-height').addEventListener('input', (e) => state.camera.height = parseFloat(e.target.value));
     document.getElementById('cam-fov').addEventListener('input', (e) => { state.camera.fov = parseInt(e.target.value); syncLens(); });
-    // v3.5 lens presets: horizontal FOV of a full-frame (36 mm wide) lens
+    // v3.6 lens presets: horizontal FOV of a full-frame (36 mm wide) lens
     const LENS = { 16: 97, 24: 74, 35: 54, 50: 40 };
     function syncLens() {
         document.querySelectorAll('#lens-row button').forEach((b) => b.classList.toggle('on', Math.abs(LENS[b.dataset.mm] - state.camera.fov) <= 1));
@@ -2167,7 +2169,17 @@ input[type="range"] {
         if (e.target.id === 'modal') document.getElementById('modal').style.display = 'none';
     });
 
+    // v3.6: regular users never see technical errors (404s, model names, "Failed to fetch"); the owner does
+    const TECH_RE = /(\b[45]\d\d\b|NOT_FOUND|Traceback|JSON|Unexpected token|undefined|Exception|Error:|models\/|gemini|https?:|\.py\b|errno|stack)/i;
+    function plainMsg(m) {
+        if (!m || (typeof ownerView === 'function' && ownerView())) return m;
+        const t = String(m);
+        if (/failed to fetch|networkerror|load failed/i.test(t)) return 'Can’t reach the studio right now — please try again in a minute.';
+        if (TECH_RE.test(t)) { console.warn('[hidden from user]', t); return 'Something went wrong on our side — please try again in a minute.'; }
+        return t;
+    }
     function updateStatus(msg, color) {
+        msg = plainMsg(msg);
         document.getElementById('status-text').textContent = msg;
         document.getElementById('status-dot').style.background = color; if(typeof updatePending==='function')updatePending(msg);
     }
@@ -2185,8 +2197,8 @@ input[type="range"] {
      collection:I('<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>'),edit:I('<path d="m16.5 3.5 4 4L7 21l-4.5 1L4 17.5Z"/>'),
      reuse:I('<path d="M4 4v5h5M20 20v-5h-5"/><path d="M20 9a8 8 0 0 0-14.6-4.6M4 15a8 8 0 0 0 14.6 4.6"/>'),del:I('<path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13"/>'),cube:I('<path d="M12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/>'),plus:I('<path d="M12 5v14M5 12h14"/>')};
     state.collections=['Living rooms','Kitchens'];
-    function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2200)}
-    // v3.5: downloads never leave the page. Files from the server (another origin) are
+    function toast(m){m=plainMsg(m);const t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2200)}
+    // v3.6: downloads never leave the page. Files from the server (another origin) are
     // fetched as a blob first -- a plain link would just open the picture and lose your work.
     async function dl(url,name){
         const save=(href)=>{const a=document.createElement('a');a.href=href;a.download=name;a.rel='noopener';document.body.appendChild(a);a.click();a.remove()};
@@ -2206,11 +2218,11 @@ input[type="range"] {
             else if(g.kind==='edit')h+=`<div class="msg user" data-i="${i}"><div class="bubble edit-in" data-act="reopen" title="Open in the editor"><img src="${g.thumb}"><span>${escapeHtml(g.prompt)}<small>Edit · ${g.time} · click to edit again</small></span></div></div>`;
             else h+=`<div class="msg user"><div class="bubble">${escapeHtml(g.prompt||'(no prompt)')}<small>${g.resolution} · ${g.time}</small>${g.refs&&g.refs.length?`<div class="rt">${g.refs.map(s=>`<img src="${s}">`).join('')}</div>`:''}</div></div>`;
             if(g.pending)h+=`<div class="msg bot" data-i="${i}"><div class="media load"><div class="ph" style="aspect-ratio:${aspect(g.resolution)}"><span class="spin"></span><span class="pend-text">${escapeHtml(g.status||'Working…')}</span><span class="pend-time">${pendTick(g)}</span></div></div>${mileHtml(g)}${qHtml(g)}</div>`;
-            else if(g.error)h+=`<div class="msg bot" data-i="${i}"><div class="bubble">⚠️ ${escapeHtml(g.error)}<small><a href="#" data-act="reuse" style="color:var(--accent-ink)">Put prompt back</a></small></div></div>`;
+            else if(g.error)h+=`<div class="msg bot" data-i="${i}"><div class="bubble">⚠️ ${escapeHtml(plainMsg(g.error))}<small><a href="#" data-act="reuse" style="color:var(--accent-ink)">Put prompt back</a></small></div></div>`;
             else h+=`<div class="msg bot" data-i="${i}">${mileHtml(g)}<div class="media">${g.finalUrl?`<img src="${g.finalUrl}" data-full="${g.finalUrl}" style="aspect-ratio:${aspect(g.resolution)}">`:`<div class="ph">Final pass unavailable</div>`}
               ${g.collections&&g.collections.length?`<div class="tags">${g.collections.map(c=>`<span class="tag">${escapeHtml(c)}</span>`).join('')}</div>`:''}
               <button class="opt" data-act="menu" title="Options">${ICONS.dots}</button>
-              <div class="bar"><button class="icon-btn ${g.liked?'on':''}" data-act="like" title="Like">${g.liked?ICONS.likeOn:ICONS.like}</button><button class="icon-btn" data-act="download" title="Download">${ICONS.download}</button><button class="icon-btn" data-act="coll" title="Add to collection">${ICONS.collection}</button>${g.variants&&g.variants.length>1?`<button class="icon-btn" data-act="other" title="Show the other option (free)">${ICONS.reuse}</button><span class="alt-n">${g.variant+1}/${g.variants.length}</span>`:''}${g.payloadId&&g.finalUrl&&!g.buildOnly?`<button class="icon-btn" data-act="glb" title="Download this room as a 3D model (.glb) · uses 2 renders">${ICONS.cube}</button>`:''}<span class="sp"></span><span class="mt">${g.label||g.resolution}${g.took?' · '+fmtTime(g.took):''}</span></div></div>${g.glbMsg||g.glbUrl?`<div class="glb-row">${g.glbMsg?escapeHtml(g.glbMsg):''}${g.glbUrl&&!g.glbMsg?`3D model ready · <a href="${g.glbUrl}" target="_blank" rel="noopener" download>download .glb</a>`:''}</div>`:''}${ownerView()?juryHtml(g)+texHtml(g):''}</div>`;
+              <div class="bar"><button class="icon-btn ${g.liked?'on':''}" data-act="like" title="Like">${g.liked?ICONS.likeOn:ICONS.like}</button><button class="icon-btn" data-act="download" title="Download">${ICONS.download}</button><button class="icon-btn" data-act="coll" title="Add to collection">${ICONS.collection}</button>${g.variants&&g.variants.length>1?`<button class="icon-btn" data-act="other" title="Show the other option (free)">${ICONS.reuse}</button><span class="alt-n">${g.variant+1}/${g.variants.length}</span>`:''}${g.payloadId&&g.finalUrl&&!g.buildOnly?`<button class="icon-btn" data-act="glb" title="Download this room as a 3D model with its textures (.glb + maps) · uses 2 renders">${ICONS.cube}</button>`:''}<span class="sp"></span><span class="mt">${g.label||g.resolution}${g.took?' · '+fmtTime(g.took):''}</span></div></div>${g.glbMsg||g.glbUrl?`<div class="glb-row">${g.glbMsg?escapeHtml(plainMsg(g.glbMsg)):''}${g.glbUrl&&!g.glbMsg?`3D model ready · ${g.zipUrl?`<a href="${g.zipUrl}" target="_blank" rel="noopener" download>download model + textures (.zip)</a> · `:''}<a href="${g.glbUrl}" target="_blank" rel="noopener" download>.glb only</a>`:''}</div>`:''}${ownerView()?juryHtml(g)+texHtml(g):''}</div>`;
         });
         list.innerHTML=h;list.scrollTop=list.scrollHeight;
     }
@@ -2297,7 +2309,7 @@ input[type="range"] {
         viewportEl.style.cursor = c;
     });
     let hist = [], redoSt = [], lastSnap = null;
-    // v3.5: undo covers the plan's position / scale / measuring, the camera, crops
+    // v3.6: undo covers the plan's position / scale / measuring, the camera, crops
     // (each crop is a saved version of the plan picture) and label edits.
     const labelState = () => (state.labels ? labelPayload(state.labels.items) : null);
     const snap = () => JSON.stringify({ i: [state.image.x, state.image.y, state.image.scale, state.image.rotation, state.image.opacity], c: [state.camera.x, state.camera.y, state.camera.height, state.camera.fov, state.camera.rotation],
@@ -2329,10 +2341,45 @@ input[type="range"] {
         if (cur !== lastSnap) { hist.push(lastSnap); if (hist.length > 100) hist.shift(); redoSt = []; lastSnap = cur; }
         updUR();
     }
-    function doUndo() { checkpoint(); if (!hist.length) return; redoSt.push(lastSnap); lastSnap = hist.pop(); applySnap(lastSnap); updUR(); }
+    // v3.6: remove the plan (Delete key on the selected plan, or the button) to start on another one
+    // without resetting everything. Ctrl+Z brings it back.
+    let planBin = null;
+    const PLAN_KEYS = ['element', 'file', 'width', 'height', 'importId', 'importMeta', 'importCrop', 'importSub', 'versions', 'ver',
+        'scale', 'x', 'y', 'rotation', 'opacity', 'traceId', 'traceSig', 'labelModel', 'labelItems', 'labelsSeen', 'snap', 'isLocked'];
+    function removePlan() {
+        const f = state.image;
+        if (!f.element) return;
+        if (state.labels) setMode('plan');
+        const keep = {}; PLAN_KEYS.forEach((k) => { keep[k] = f[k]; });
+        planBin = { f, keep, cal: state.scale.calibrated, points: state.scale.points };
+        PLAN_KEYS.forEach((k) => { if (!['scale', 'x', 'y', 'rotation', 'opacity'].includes(k)) f[k] = null; });
+        f.ver = 0; f.isLocked = false; f.selected = false;
+        state.scale.calibrated = false; state.scale.points = []; state.snapPoints = [];
+        hist = []; redoSt = []; lastSnap = null; updUR();
+        toast('Plan removed — Ctrl+Z brings it back');
+        updateStatus('Upload the next floor plan', '#c89b4c');
+    }
+    function restorePlan() {
+        if (!planBin || planBin.f !== state.image || state.image.element) return false;
+        Object.assign(planBin.f, planBin.keep);
+        state.scale.calibrated = planBin.cal; state.scale.points = planBin.points || [];
+        state.snapPoints = planBin.f.snap || [];
+        planBin = null; lastSnap = null;
+        toast('Plan restored');
+        return true;
+    }
+    E('btn-remove-plan').addEventListener('click', removePlan);
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Delete' && e.key !== 'Backspace') return;
+        if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable) return;
+        if (state.labels) return;                                   // labels mode: Delete removes a label
+        const f = state.image;
+        if (f.element && f.selected && !f.isLocked) { e.preventDefault(); removePlan(); }
+    });
+    function doUndo() { if (!state.image.element && restorePlan()) { updUR(); return; } checkpoint(); if (!hist.length) return; redoSt.push(lastSnap); lastSnap = hist.pop(); applySnap(lastSnap); updUR(); }
     function doRedo() { if (!redoSt.length) return; hist.push(lastSnap); lastSnap = redoSt.pop(); applySnap(lastSnap); updUR(); }
     function updUR() {
-        document.querySelectorAll('.js-undo').forEach(b => b.disabled = !hist.length);
+        document.querySelectorAll('.js-undo').forEach(b => b.disabled = !hist.length && !(planBin && !state.image.element));
         document.querySelectorAll('.js-redo').forEach(b => b.disabled = !redoSt.length);
     }
     document.querySelectorAll('.js-undo').forEach(b => b.addEventListener('click', doUndo));
@@ -2484,7 +2531,7 @@ input[type="range"] {
         E('dock-labels').classList.toggle('on', !!state.labels);
         positionLabels();
         syncModeBar();
-        // v3.5: tips only open from the ? on the rail
+        // v3.6: tips only open from the ? on the rail
         E('cam-floor-row') && E('cam-floor-row').classList.toggle('hidden', state.floors.filter((f) => f.element).length < 2);
         if (pl.classList.contains('on')) {
             const pos = worldToScreen(im.x, im.y), z = state.viewport.zoom, w = im.width * im.scale * z, h = im.height * im.scale * z;
@@ -2892,8 +2939,8 @@ input[type="range"] {
         const fd = new FormData();
         fd.append('image', sq.blob, 'floorplan_square.png');
         fd.append('canvas_meters', floorMeters(f).toFixed(4));
-        if (f.importId) fd.append('import_id', f.importId);
-        if (f.importId && f.importCrop) fd.append('import_crop', JSON.stringify(f.importCrop));
+        if (f.importId) fd.append('import_id', f.importSub || f.importId);
+        if (f.importId && f.importCrop && !f.importSub) fd.append('import_crop', JSON.stringify(f.importCrop));
         fd.append('user_id', currentUser.id || 'guest_user');
         const r = await fetch(`${BASE()}/trace`, { method: 'POST', body: fd });
         const j = await readReply(r, 'read plan');
@@ -2942,7 +2989,7 @@ input[type="range"] {
         return spec;
     }
 
-    // ---------------- v3.5: crop to one room ----------------
+    // ---------------- v3.6: crop to one room ----------------
     function openCrop(img, ppm, current) {
         return new Promise((resolve) => {
             const M = E('crop-modal'), cv = E('crop-canvas'), cx = cv.getContext('2d');
@@ -3021,13 +3068,14 @@ input[type="range"] {
     }
     function savePlanVersion(f) {
         f.versions = f.versions || [];
-        f.versions[f.ver || 0] = { element: f.element, file: f.file, importCrop: f.importCrop || null, width: f.width, height: f.height, importMeta: f.importMeta || null };
+        f.versions[f.ver || 0] = { element: f.element, file: f.file, importCrop: f.importCrop || null, importSub: f.importSub || null, width: f.width, height: f.height, importMeta: f.importMeta || null, scale: f.scale };
     }
     function restorePlanVersion(v) {
         const f = state.image, rec = (f.versions || [])[v];
         if (!rec) return;
         savePlanVersion(f);
-        Object.assign(f, { element: rec.element, file: rec.file, importCrop: rec.importCrop, width: rec.width, height: rec.height, importMeta: rec.importMeta, ver: v });
+        Object.assign(f, { element: rec.element, file: rec.file, importCrop: rec.importCrop, importSub: rec.importSub || null, width: rec.width, height: rec.height, importMeta: rec.importMeta, ver: v });
+        if (rec.scale) f.scale = rec.scale;
         state.snapPoints = []; setTimeout(() => { withFloor(f, () => { computeSnapPoints(f.element); f.snap = state.snapPoints; }); }, 30);
         toast(v ? 'Crop restored' : 'Back to the whole drawing');
     }
@@ -3038,17 +3086,35 @@ input[type="range"] {
         // always crop from the ORIGINAL picture, so "Use the whole drawing" really goes back to it
         savePlanVersion(f);
         const orig = (f.versions && f.versions[0]) || { element: f.element };
-        const res = await openCrop(orig.element, state.scale.calibrated || f.importId ? ppm : null, f.importCrop);
+        const ppm0 = orig.scale ? PIXELS_PER_METER / orig.scale : ppm;
+        const res = await openCrop(orig.element, state.scale.calibrated || f.importId ? ppm0 : null, f.importCrop);
         if (!res) {                                         // "Use the whole drawing"
             if (f.ver) { checkpoint(); restorePlanVersion(0); checkpoint(); }
             return;
         }
         checkpoint();
-        const keepScale = f.scale, keepCal = state.scale.calibrated, keepMeta = f.importMeta, keepVersions = f.versions;
+        const keepScale = (orig.scale || f.scale), keepCal = state.scale.calibrated, keepMeta = f.importMeta, keepVersions = f.versions;
         const keepId = f.importId;
-        planLoaded(res.img, f.file, keepMeta || null);
-        f.importId = keepId;
-        f.scale = keepScale; state.scale.calibrated = keepCal;
+        // v3.6: an imported PDF / DXF / DWG is re-drawn sharp for the cropped area (the overview picture
+        // enlarged was blurry, with thick lines); if that fails the page keeps its own crop
+        let img = res.img, factor = 1, sub = null;
+        if (keepId) {
+            updateStatus('Drawing the cropped area sharp…', '#c89b4c');
+            try {
+                const baseUrl = API_BASE_URL || 'http://localhost:5000';
+                const r = await fetch(`${baseUrl}/recrop`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ import_id: keepId, crop: res.crop }) });
+                if (r.ok) {
+                    const j = await r.json();
+                    const blob = await (await fetch(`${baseUrl}${j.image_url}`)).blob();
+                    const url = await new Promise((ok) => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.readAsDataURL(blob); });
+                    img = await new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = url; });
+                    factor = j.factor || (img.width / res.crop.w); sub = j.import_id;
+                }
+            } catch (e) { console.warn('sharp crop unavailable', e); }
+        }
+        planLoaded(img, f.file, keepMeta || null);
+        f.importId = keepId; f.importSub = sub;
+        f.scale = keepScale / factor; state.scale.calibrated = keepCal;
         f.importCrop = { x: res.crop.x, y: res.crop.y, w: res.crop.w, h: res.crop.h };   // relative to the original
         f.versions = keepVersions; f.ver = keepVersions.length;
         savePlanVersion(f);
@@ -3058,7 +3124,7 @@ input[type="range"] {
     }
     E('btn-crop').addEventListener('click', cropCurrentPlan);
 
-    // v3.5 owner view: what the judges said, and the textures made for the 3D model
+    // v3.6 owner view: what the judges said, and the textures made for the 3D model
     function ownerView() { return !acct.requireInvite || !!(acct.user && acct.user.unlimited); }
     function juryHtml(g) {
         if (!g.jury || !g.jury.length) return '';
@@ -3155,7 +3221,7 @@ input[type="range"] {
             gen.buildOnly = true;
             gen.glbMsg = `Built in Blender (no render, no credit) · open ${st.folder || 'the payload folder'} → scene.blend`;
         }
-        // v3.5: the server may have moved the camera to get a clear view
+        // v3.6: the server may have moved the camera to get a clear view
         const cc = st.camera_check;
         if (cc && cc.moved_m && cc.rel_x != null) {
             moveCameraToRel(+cc.rel_x, +cc.rel_y);
@@ -3175,7 +3241,7 @@ input[type="range"] {
         state.camera.y = f0.y - h / 2 + relY * h;
     }
 
-    // v3.5: 3D model download. Runs on the server alongside renders.
+    // v3.6: 3D model download. Runs on the server alongside renders.
     async function exportModel(gen) {
         if (gen.glbPending) return;
         const baseUrl = API_BASE_URL || 'http://localhost:5000';
@@ -3192,6 +3258,7 @@ input[type="range"] {
                 if (st.stage === 'error') throw new Error(st.error || '3D model failed');
                 if (st.stage === 'done') {
                     gen.glbUrl = `${baseUrl}${st.glb_url}?t=${Date.now()}`;
+                    gen.zipUrl = st.zip_url ? `${baseUrl}${st.zip_url}?t=${Date.now()}` : null;
                     gen.textures = (st.textures || []).map((t) => (t.url ? { ...t, url: `${baseUrl}${t.url}` } : t));
                     gen.exportFolder = st.folder || null;
                     break;
@@ -3200,7 +3267,8 @@ input[type="range"] {
             }
             gen.glbMsg = null;
             toast('3D model ready');
-            dl(gen.glbUrl, `genarch_room_${gen.payloadId}.glb`);
+            if (gen.zipUrl) dl(gen.zipUrl, `genarch_room_${gen.payloadId}.zip`);
+            else dl(gen.glbUrl, `genarch_room_${gen.payloadId}.glb`);
         } catch (err) {
             gen.glbMsg = '⚠️ ' + err.message;
         } finally {
@@ -3350,7 +3418,7 @@ input[type="range"] {
     function boxLocal(o, p) { return rotatePoint(p.x - o.x, p.y - o.y, 0, 0, -(o.rot || 0)); }
     function boxPoint(o, lx, ly) { const r = rotatePoint(lx, ly, 0, 0, o.rot || 0); return { x: o.x + r.x, y: o.y + r.y }; }
     function boxHandles(o) { return { size: boxPoint(o, o.w / 2, o.h / 2), rot: boxPoint(o, 0, -o.h / 2 - 24 / labUnit().px) }; }
-    // v3.5: eight handles (corners + side midpoints); each moves only its own sides
+    // v3.6: eight handles (corners + side midpoints); each moves only its own sides
     function sideHandles(o) {
         const out = [];
         for (const sx of [-1, 0, 1]) for (const sy of [-1, 0, 1]) {
