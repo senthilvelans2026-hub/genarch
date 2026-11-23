@@ -582,7 +582,7 @@ input[type="range"] {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
-/* ===== v3.3 compact layout: the grid and the chat lead, everything else is small ===== */
+/* ===== v3.4 compact layout: the grid and the chat lead, everything else is small ===== */
 #hint-overlay{display:none!important}
 #steps{display:none!important}
 #status-pill{padding:5px 11px;font-size:11px;gap:7px}
@@ -618,7 +618,7 @@ input[type="range"] {
 #dock-labels p{font-size:10.5px;line-height:1.4}
 #dock-labels p:last-of-type{display:none}
 .file-upload-sub{display:block;font-size:10.5px;color:var(--ink-faint);max-width:250px;text-align:center;line-height:1.4;margin-top:4px}
-/* v3.3 crop to one room */
+/* v3.4 crop to one room */
 #crop-modal{position:fixed;inset:0;z-index:80;background:rgba(24,26,34,.55);display:flex;align-items:center;justify-content:center}
 #crop-modal.hidden{display:none}
 #crop-card{background:var(--paper,#fff);border-radius:18px;padding:16px 18px 14px;box-shadow:0 20px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:10px;max-width:92vw}
@@ -661,7 +661,7 @@ input[type="range"] {
     <div id="tip" class="hidden"></div>
     <div id="lab-banner" class="hidden"><span id="lab-banner-text">Labels are ready</span><button id="lab-banner-go">Review labels</button><button class="x" id="lab-banner-x" title="Dismiss">✕</button></div>
     <aside id="chat">
-        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v3.3</span></div><span class="sp"></span>
+        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v3.4</span></div><span class="sp"></span>
             <button id="btn-reset" class="btn btn-ghost btn-small" title="Start over"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg> Reset</button></div>
         <div id="chat-list"></div>
         <div id="composer">
@@ -1558,7 +1558,7 @@ input[type="range"] {
 
         if (state.labels && state.image.element) {
             const L = state.labels, p = screenToU(ms.x, ms.y), tol = 11 / labUnit().px;
-            if (L.shaping) {                                     // v3.3: polygon in progress
+            if (L.shaping) {                                     // v3.4: polygon in progress
                 const it = L.shaping, f = it.pts[0];
                 if (it.pts.length >= 3 && Math.hypot(p.x - f.x, p.y - f.y) < tol) finishShape();
                 else { it.pts.push({ x: p.x, y: p.y }); syncPolyBox(it); }
@@ -1897,6 +1897,7 @@ input[type="range"] {
             showCredits();
         } catch (_) {}
     }
+    const PAGE_VERSION = '3.4';
     (async function startAccounts() {
         await configReady;
         if (!onServer && !API_BASE_URL) { setGate(true, 'The studio is offline right now. Please try again later.'); return; }
@@ -1904,6 +1905,12 @@ input[type="range"] {
             const r = await rawFetch(`${serverBase()}/api/config`);
             const j = await r.json();
             acct.requireInvite = !!j.require_invite; acct.free = j.free_renders || 10;
+            // v3.4: say plainly when this page and the server are different versions
+            if (j.version !== PAGE_VERSION) {
+                const msg = `Version mismatch: this page is v${PAGE_VERSION}, the server is v${j.version || 'older than 3.4'}. ` +
+                    (j.version && j.version > PAGE_VERSION ? 'Upload the new index.html to GitHub, then press Ctrl+Shift+R.' : 'Copy the new server files into your project folder and restart start_server.bat.');
+                updateStatus(msg, '#c0503f'); setTimeout(() => toast(msg), 800);
+            }
         } catch (_) {
             if (!onServer) { setGate(true, 'The studio is offline right now. Please try again later.'); return; }
         }
@@ -1984,7 +1991,7 @@ input[type="range"] {
     }
 
     // ---------------- Handlers ----------------
-    // v3.3: PDF / DXF / DWG go to the server first and come back as a clean plan picture
+    // v3.4: PDF / DXF / DWG go to the server first and come back as a clean plan picture
     async function importPlanFile(file) {
         const baseUrl = API_BASE_URL || 'http://localhost:5000';
         updateStatus(`Reading ${file.name}…`, '#c89b4c');
@@ -2101,7 +2108,7 @@ input[type="range"] {
 
     document.getElementById('cam-height').addEventListener('input', (e) => state.camera.height = parseFloat(e.target.value));
     document.getElementById('cam-fov').addEventListener('input', (e) => { state.camera.fov = parseInt(e.target.value); syncLens(); });
-    // v3.3 lens presets: horizontal FOV of a full-frame (36 mm wide) lens
+    // v3.4 lens presets: horizontal FOV of a full-frame (36 mm wide) lens
     const LENS = { 16: 97, 24: 74, 35: 54, 50: 40 };
     function syncLens() {
         document.querySelectorAll('#lens-row button').forEach((b) => b.classList.toggle('on', Math.abs(LENS[b.dataset.mm] - state.camera.fov) <= 1));
@@ -2178,7 +2185,16 @@ input[type="range"] {
      reuse:I('<path d="M4 4v5h5M20 20v-5h-5"/><path d="M20 9a8 8 0 0 0-14.6-4.6M4 15a8 8 0 0 0 14.6 4.6"/>'),del:I('<path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13"/>'),cube:I('<path d="M12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/>'),plus:I('<path d="M12 5v14M5 12h14"/>')};
     state.collections=['Living rooms','Kitchens'];
     function toast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2200)}
-    function dl(url,name){const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove()}
+    // v3.4: downloads never leave the page. Files from the server (another origin) are
+    // fetched as a blob first -- a plain link would just open the picture and lose your work.
+    async function dl(url,name){
+        const save=(href)=>{const a=document.createElement('a');a.href=href;a.download=name;a.rel='noopener';document.body.appendChild(a);a.click();a.remove()};
+        if(/^(data|blob):/.test(url))return save(url);
+        try{const r=await fetch(url);if(!r.ok)throw new Error(r.status);const b=await r.blob();const u=URL.createObjectURL(b);save(u);setTimeout(()=>URL.revokeObjectURL(u),60000)}
+        catch(e){window.open(url,'_blank','noopener');toast('Opened in a new tab — save it from there')}
+    }
+    // leaving or reloading the page loses the session: ask first once something has been made
+    window.addEventListener('beforeunload',(e)=>{if(state.generations&&state.generations.length){e.preventDefault();e.returnValue=''}});
     const aspect=r=>r.replace(':','/');
     function renderGenerations(){
         const list=document.getElementById('chat-list');
@@ -2193,7 +2209,7 @@ input[type="range"] {
             else h+=`<div class="msg bot" data-i="${i}">${mileHtml(g)}<div class="media">${g.finalUrl?`<img src="${g.finalUrl}" data-full="${g.finalUrl}" style="aspect-ratio:${aspect(g.resolution)}">`:`<div class="ph">Final pass unavailable</div>`}
               ${g.collections&&g.collections.length?`<div class="tags">${g.collections.map(c=>`<span class="tag">${escapeHtml(c)}</span>`).join('')}</div>`:''}
               <button class="opt" data-act="menu" title="Options">${ICONS.dots}</button>
-              <div class="bar"><button class="icon-btn ${g.liked?'on':''}" data-act="like" title="Like">${g.liked?ICONS.likeOn:ICONS.like}</button><button class="icon-btn" data-act="download" title="Download">${ICONS.download}</button><button class="icon-btn" data-act="coll" title="Add to collection">${ICONS.collection}</button>${g.variants&&g.variants.length>1?`<button class="icon-btn" data-act="other" title="Show the other option (free)">${ICONS.reuse}</button><span class="alt-n">${g.variant+1}/${g.variants.length}</span>`:''}${g.payloadId&&g.finalUrl&&!g.buildOnly?`<button class="icon-btn" data-act="glb" title="Download this room as a 3D model (.glb) · uses 2 renders">${ICONS.cube}</button>`:''}<span class="sp"></span><span class="mt">${g.label||g.resolution}${g.took?' · '+fmtTime(g.took):''}</span></div></div>${g.glbMsg||g.glbUrl?`<div class="glb-row">${g.glbMsg?escapeHtml(g.glbMsg):''}${g.glbUrl&&!g.glbMsg?`3D model ready · <a href="${g.glbUrl}" download>download .glb</a>`:''}</div>`:''}${ownerView()?juryHtml(g)+texHtml(g):''}</div>`;
+              <div class="bar"><button class="icon-btn ${g.liked?'on':''}" data-act="like" title="Like">${g.liked?ICONS.likeOn:ICONS.like}</button><button class="icon-btn" data-act="download" title="Download">${ICONS.download}</button><button class="icon-btn" data-act="coll" title="Add to collection">${ICONS.collection}</button>${g.variants&&g.variants.length>1?`<button class="icon-btn" data-act="other" title="Show the other option (free)">${ICONS.reuse}</button><span class="alt-n">${g.variant+1}/${g.variants.length}</span>`:''}${g.payloadId&&g.finalUrl&&!g.buildOnly?`<button class="icon-btn" data-act="glb" title="Download this room as a 3D model (.glb) · uses 2 renders">${ICONS.cube}</button>`:''}<span class="sp"></span><span class="mt">${g.label||g.resolution}${g.took?' · '+fmtTime(g.took):''}</span></div></div>${g.glbMsg||g.glbUrl?`<div class="glb-row">${g.glbMsg?escapeHtml(g.glbMsg):''}${g.glbUrl&&!g.glbMsg?`3D model ready · <a href="${g.glbUrl}" target="_blank" rel="noopener" download>download .glb</a>`:''}</div>`:''}${ownerView()?juryHtml(g)+texHtml(g):''}</div>`;
         });
         list.innerHTML=h;list.scrollTop=list.scrollHeight;
     }
@@ -2449,7 +2465,7 @@ input[type="range"] {
         E('dock-labels').classList.toggle('on', !!state.labels);
         positionLabels();
         syncModeBar();
-        // v3.3: tips only open from the ? on the rail
+        // v3.4: tips only open from the ? on the rail
         E('cam-floor-row') && E('cam-floor-row').classList.toggle('hidden', state.floors.filter((f) => f.element).length < 2);
         if (pl.classList.contains('on')) {
             const pos = worldToScreen(im.x, im.y), z = state.viewport.zoom, w = im.width * im.scale * z, h = im.height * im.scale * z;
@@ -2907,7 +2923,7 @@ input[type="range"] {
         return spec;
     }
 
-    // ---------------- v3.3: crop to one room ----------------
+    // ---------------- v3.4: crop to one room ----------------
     function openCrop(img, ppm) {
         return new Promise((resolve) => {
             const M = E('crop-modal'), cv = E('crop-canvas'), cx = cv.getContext('2d');
@@ -3000,7 +3016,7 @@ input[type="range"] {
     }
     E('btn-crop').addEventListener('click', cropCurrentPlan);
 
-    // v3.3 owner view: what the judges said, and the textures made for the 3D model
+    // v3.4 owner view: what the judges said, and the textures made for the 3D model
     function ownerView() { return !acct.requireInvite || !!(acct.user && acct.user.unlimited); }
     function juryHtml(g) {
         if (!g.jury || !g.jury.length) return '';
@@ -3097,7 +3113,7 @@ input[type="range"] {
             gen.buildOnly = true;
             gen.glbMsg = `Built in Blender (no render, no credit) · open ${st.folder || 'the payload folder'} → scene.blend`;
         }
-        // v3.3: the server may have moved the camera to get a clear view
+        // v3.4: the server may have moved the camera to get a clear view
         const cc = st.camera_check;
         if (cc && cc.moved_m && cc.rel_x != null) {
             moveCameraToRel(+cc.rel_x, +cc.rel_y);
@@ -3117,7 +3133,7 @@ input[type="range"] {
         state.camera.y = f0.y - h / 2 + relY * h;
     }
 
-    // v3.3: 3D model download. Runs on the server alongside renders.
+    // v3.4: 3D model download. Runs on the server alongside renders.
     async function exportModel(gen) {
         if (gen.glbPending) return;
         const baseUrl = API_BASE_URL || 'http://localhost:5000';
@@ -3291,7 +3307,7 @@ input[type="range"] {
     function boxLocal(o, p) { return rotatePoint(p.x - o.x, p.y - o.y, 0, 0, -(o.rot || 0)); }
     function boxPoint(o, lx, ly) { const r = rotatePoint(lx, ly, 0, 0, o.rot || 0); return { x: o.x + r.x, y: o.y + r.y }; }
     function boxHandles(o) { return { size: boxPoint(o, o.w / 2, o.h / 2), rot: boxPoint(o, 0, -o.h / 2 - 24 / labUnit().px) }; }
-    // v3.3: eight handles (corners + side midpoints); each moves only its own sides
+    // v3.4: eight handles (corners + side midpoints); each moves only its own sides
     function sideHandles(o) {
         const out = [];
         for (const sx of [-1, 0, 1]) for (const sy of [-1, 0, 1]) {
