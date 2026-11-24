@@ -582,7 +582,7 @@ input[type="range"] {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
 
-/* ===== v3.6 compact layout: the grid and the chat lead, everything else is small ===== */
+/* ===== v3.7 compact layout: the grid and the chat lead, everything else is small ===== */
 #hint-overlay{display:none!important}
 #steps{display:none!important}
 #status-pill{padding:5px 11px;font-size:11px;gap:7px}
@@ -612,15 +612,31 @@ input[type="range"] {
 /* tips: small, only when asked for */
 #tip{padding:5px 6px 5px 10px;border-radius:11px;max-width:min(440px,calc(100vw - var(--chat-w) - 120px))}
 #tip .k{font-size:10px;padding:1px 6px 1px 2px}#tip kbd{font-size:9px}
-#lab-banner{padding:6px 8px 6px 12px;font-size:12px;top:104px}#lab-banner button{font-size:11px;padding:4px 10px}
+#lab-banner{padding:6px 8px 6px 12px;font-size:12px;top:104px}
+#lab-banner.reading{background:rgba(255,255,255,.96);color:var(--ink);box-shadow:0 8px 26px rgba(0,0,0,.10);border:1px solid var(--line)}
+#lab-banner.reading button{display:none}
+.spin.sm{width:12px;height:12px;border-width:2px;display:inline-block;vertical-align:-2px;margin-right:6px}#lab-banner button{font-size:11px;padding:4px 10px}
 .pgc{font-size:10.5px;padding:2px 8px}
 #dock-labels{right:62px!important;top:30%!important}
 #dock-labels p{font-size:10.5px;line-height:1.4}
 #dock-labels p:last-of-type{display:none}
 .file-upload-sub{display:block;font-size:10.5px;color:var(--ink-faint);max-width:250px;text-align:center;line-height:1.4;margin-top:4px}
-/* v3.6 crop to one room */
+/* v3.7 crop to one room */
 #crop-modal{position:fixed;inset:0;z-index:80;background:rgba(24,26,34,.55);display:flex;align-items:center;justify-content:center}
 #crop-modal.hidden{display:none}
+#owner-health{position:fixed;right:14px;bottom:14px;z-index:70;max-width:380px;background:#fff8ec;border:1px solid #e3c48f;border-radius:12px;padding:9px 12px;font-size:11.5px;color:#6b4e1c;box-shadow:0 8px 24px rgba(0,0,0,.12);cursor:pointer;line-height:1.45}
+#owner-health b{display:block;margin-bottom:3px}#owner-health small{display:block;margin-top:4px;color:#a08453}
+#x3d-modal{position:fixed;inset:0;z-index:80;background:rgba(24,26,34,.55);display:flex;align-items:center;justify-content:center}
+#x3d-modal.hidden{display:none}
+#x3d-card{background:var(--paper,#fff);border-radius:18px;padding:16px 18px 14px;box-shadow:0 20px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:9px;max-width:min(720px,92vw)}
+#x3d-card h3{margin:0;font-size:15px}
+#x3d-card .why{font-size:12px;color:var(--ink-soft);line-height:1.45;margin:0}#x3d-card .why.small{font-size:11px}
+#x3d-card .k-s{color:#9a7432}#x3d-card .k-m{color:#6b7280}
+#x3d-canvas{background:#fff;border-radius:10px;border:1px solid var(--line);max-width:100%;max-height:46vh;align-self:center}
+#x3d-list{display:flex;flex-wrap:wrap;gap:5px}
+#x3d-list span{font-size:11px;padding:3px 8px;border-radius:99px;border:1px solid var(--line)}
+#x3d-list span.s{background:rgba(200,155,76,.16);border-color:rgba(200,155,76,.6)}#x3d-list span.m{border-style:dashed;color:var(--ink-soft)}
+#x3d-card .row{display:flex;gap:8px;justify-content:flex-end;align-items:center}
 #crop-card{background:var(--paper,#fff);border-radius:18px;padding:16px 18px 14px;box-shadow:0 20px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:10px;max-width:92vw}
 #crop-card h3{margin:0;font-size:15px}
 #crop-card .why{font-size:12px;color:var(--ink-soft);max-width:640px;line-height:1.45;margin:0}
@@ -640,6 +656,12 @@ input[type="range"] {
 .lab .face:hover{background:var(--accent);color:#fff}
 /* result card: other option + 3D */
 .media .bar .alt-n{font-size:10.5px;color:var(--ink-faint);margin-left:2px}
+.opts{display:flex;gap:6px;padding:6px 2px 0;align-items:center}
+.opts button{border:1.5px solid transparent;border-radius:8px;padding:0;background:none;cursor:pointer;position:relative;line-height:0;overflow:hidden}
+.opts button img{width:88px;border-radius:6px;object-fit:cover;opacity:.75;transition:opacity .15s}
+.opts button.on{border-color:var(--accent)}.opts button.on img,.opts button:hover img{opacity:1}
+.opts button span{position:absolute;left:4px;bottom:4px;font-size:9.5px;line-height:1;background:rgba(255,255,255,.88);color:var(--ink);padding:2px 5px;border-radius:4px}
+.opts small{font-size:10.5px;color:var(--ink-faint);margin-left:4px;line-height:1.3}
 .glb-row{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-soft);padding:6px 2px 0}
 .glb-row a{color:var(--accent-ink,#8a6a2f);font-weight:600}
 </style>
@@ -661,7 +683,7 @@ input[type="range"] {
     <div id="tip" class="hidden"></div>
     <div id="lab-banner" class="hidden"><span id="lab-banner-text">Labels are ready</span><button id="lab-banner-go">Review labels</button><button class="x" id="lab-banner-x" title="Dismiss">✕</button></div>
     <aside id="chat">
-        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v3.6</span></div><span class="sp"></span>
+        <div class="chat-head"><div class="brand-mark"><b>Gen-Arch</b> <span class="version-chip">v3.7</span></div><span class="sp"></span>
             <button id="btn-reset" class="btn btn-ghost btn-small" title="Start over"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v5h5"/><path d="M20 12a8 8 0 1 0-2.3 5.7"/></svg> Reset</button></div>
         <div id="chat-list"></div>
         <div id="composer">
@@ -1054,6 +1076,7 @@ input[type="range"] {
         if (state.image.element) { if (!state.image.isLocked) drawScaleLine(); updateScaleReadout(); }
         if (state.camera.active) drawCamera();
         if (state.labels) drawLabelBoxes();
+        drawPlanRead();
         drawScaleBar();
         syncTransformInputs();
         requestAnimationFrame(draw);
@@ -1559,7 +1582,7 @@ input[type="range"] {
 
         if (state.labels && state.image.element) {
             const L = state.labels, p = screenToU(ms.x, ms.y), tol = 11 / labUnit().px;
-            if (L.shaping) {                                     // v3.6: polygon in progress
+            if (L.shaping) {                                     // v3.7: polygon in progress
                 const it = L.shaping, f = it.pts[0];
                 if (it.pts.length >= 3 && Math.hypot(p.x - f.x, p.y - f.y) < tol) finishShape();
                 else { it.pts.push({ x: p.x, y: p.y }); syncPolyBox(it); }
@@ -1898,7 +1921,7 @@ input[type="range"] {
             showCredits();
         } catch (_) {}
     }
-    const PAGE_VERSION = '3.6';
+    const PAGE_VERSION = '3.7';
     (async function startAccounts() {
         await configReady;
         if (!onServer && !API_BASE_URL) { setGate(true, 'The studio is offline right now. Please try again later.'); return; }
@@ -1906,9 +1929,9 @@ input[type="range"] {
             const r = await rawFetch(`${serverBase()}/api/config`);
             const j = await r.json();
             acct.requireInvite = !!j.require_invite; acct.free = j.free_renders || 10;
-            // v3.6: say plainly when this page and the server are different versions
+            // v3.7: say plainly when this page and the server are different versions
             if (j.version !== PAGE_VERSION) {
-                const msg = `Version mismatch: this page is v${PAGE_VERSION}, the server is v${j.version || 'older than 3.6'}. ` +
+                const msg = `Version mismatch: this page is v${PAGE_VERSION}, the server is v${j.version || 'older than 3.7'}. ` +
                     (j.version && j.version > PAGE_VERSION ? 'Upload the new index.html to GitHub, then press Ctrl+Shift+R.' : 'Copy the new server files into your project folder and restart start_server.bat.');
                 updateStatus(msg, '#c0503f'); setTimeout(() => toast(msg), 800);
             }
@@ -1992,7 +2015,7 @@ input[type="range"] {
     }
 
     // ---------------- Handlers ----------------
-    // v3.6: PDF / DXF / DWG go to the server first and come back as a clean plan picture
+    // v3.7: PDF / DXF / DWG go to the server first and come back as a clean plan picture
     async function importPlanFile(file) {
         const baseUrl = API_BASE_URL || 'http://localhost:5000';
         updateStatus(`Reading ${file.name}…`, '#c89b4c');
@@ -2094,6 +2117,7 @@ input[type="range"] {
             document.getElementById('btn-add-camera').disabled = false;
             updateStatus('Plan confirmed — now fix the camera', '#c89b4c');
             if (!state.camera.active) document.getElementById('btn-add-camera').click();
+            startEarlyRead();
         } else {
             btn.textContent = 'Confirm plan ✓';
             btn.classList.remove('btn-primary');
@@ -2111,7 +2135,7 @@ input[type="range"] {
 
     document.getElementById('cam-height').addEventListener('input', (e) => state.camera.height = parseFloat(e.target.value));
     document.getElementById('cam-fov').addEventListener('input', (e) => { state.camera.fov = parseInt(e.target.value); syncLens(); });
-    // v3.6 lens presets: horizontal FOV of a full-frame (36 mm wide) lens
+    // v3.7 lens presets: horizontal FOV of a full-frame (36 mm wide) lens
     const LENS = { 16: 97, 24: 74, 35: 54, 50: 40 };
     function syncLens() {
         document.querySelectorAll('#lens-row button').forEach((b) => b.classList.toggle('on', Math.abs(LENS[b.dataset.mm] - state.camera.fov) <= 1));
@@ -2169,7 +2193,7 @@ input[type="range"] {
         if (e.target.id === 'modal') document.getElementById('modal').style.display = 'none';
     });
 
-    // v3.6: regular users never see technical errors (404s, model names, "Failed to fetch"); the owner does
+    // v3.7: regular users never see technical errors (404s, model names, "Failed to fetch"); the owner does
     const TECH_RE = /(\b[45]\d\d\b|NOT_FOUND|Traceback|JSON|Unexpected token|undefined|Exception|Error:|models\/|gemini|https?:|\.py\b|errno|stack)/i;
     function plainMsg(m) {
         if (!m || (typeof ownerView === 'function' && ownerView())) return m;
@@ -2181,7 +2205,7 @@ input[type="range"] {
     function updateStatus(msg, color) {
         msg = plainMsg(msg);
         document.getElementById('status-text').textContent = msg;
-        document.getElementById('status-dot').style.background = color; if(typeof updatePending==='function')updatePending(msg);
+        document.getElementById('status-dot').style.background = color; if(typeof updatePending==='function')updatePending();
     }
 
     function escapeHtml(str) {
@@ -2198,7 +2222,7 @@ input[type="range"] {
      reuse:I('<path d="M4 4v5h5M20 20v-5h-5"/><path d="M20 9a8 8 0 0 0-14.6-4.6M4 15a8 8 0 0 0 14.6 4.6"/>'),del:I('<path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13"/>'),cube:I('<path d="M12 3 3 8v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/>'),plus:I('<path d="M12 5v14M5 12h14"/>')};
     state.collections=['Living rooms','Kitchens'];
     function toast(m){m=plainMsg(m);const t=document.getElementById('toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',2200)}
-    // v3.6: downloads never leave the page. Files from the server (another origin) are
+    // v3.7: downloads never leave the page. Files from the server (another origin) are
     // fetched as a blob first -- a plain link would just open the picture and lose your work.
     async function dl(url,name){
         const save=(href)=>{const a=document.createElement('a');a.href=href;a.download=name;a.rel='noopener';document.body.appendChild(a);a.click();a.remove()};
@@ -2220,11 +2244,16 @@ input[type="range"] {
             if(g.pending)h+=`<div class="msg bot" data-i="${i}"><div class="media load"><div class="ph" style="aspect-ratio:${aspect(g.resolution)}"><span class="spin"></span><span class="pend-text">${escapeHtml(g.status||'Working…')}</span><span class="pend-time">${pendTick(g)}</span></div></div>${mileHtml(g)}${qHtml(g)}</div>`;
             else if(g.error)h+=`<div class="msg bot" data-i="${i}"><div class="bubble">⚠️ ${escapeHtml(plainMsg(g.error))}<small><a href="#" data-act="reuse" style="color:var(--accent-ink)">Put prompt back</a></small></div></div>`;
             else h+=`<div class="msg bot" data-i="${i}">${mileHtml(g)}<div class="media">${g.finalUrl?`<img src="${g.finalUrl}" data-full="${g.finalUrl}" style="aspect-ratio:${aspect(g.resolution)}">`:`<div class="ph">Final pass unavailable</div>`}
+              ${g.variants&&g.variants.length>1?`<div class="opts">${g.variants.map((u,k)=>`<button class="${k===g.variant?'on':''}" data-act="pick" data-k="${k}" title="Use option ${k+1}"><img src="${u}" style="aspect-ratio:${aspect(g.resolution)}"><span>${k+1}</span></button>`).join('')}<small>Two takes of the same room — pick the one that got it right. The 3D model and edits use the one you pick.</small></div>`:''}
               ${g.collections&&g.collections.length?`<div class="tags">${g.collections.map(c=>`<span class="tag">${escapeHtml(c)}</span>`).join('')}</div>`:''}
               <button class="opt" data-act="menu" title="Options">${ICONS.dots}</button>
               <div class="bar"><button class="icon-btn ${g.liked?'on':''}" data-act="like" title="Like">${g.liked?ICONS.likeOn:ICONS.like}</button><button class="icon-btn" data-act="download" title="Download">${ICONS.download}</button><button class="icon-btn" data-act="coll" title="Add to collection">${ICONS.collection}</button>${g.variants&&g.variants.length>1?`<button class="icon-btn" data-act="other" title="Show the other option (free)">${ICONS.reuse}</button><span class="alt-n">${g.variant+1}/${g.variants.length}</span>`:''}${g.payloadId&&g.finalUrl&&!g.buildOnly?`<button class="icon-btn" data-act="glb" title="Download this room as a 3D model with its textures (.glb + maps) · uses 2 renders">${ICONS.cube}</button>`:''}<span class="sp"></span><span class="mt">${g.label||g.resolution}${g.took?' · '+fmtTime(g.took):''}</span></div></div>${g.glbMsg||g.glbUrl?`<div class="glb-row">${g.glbMsg?escapeHtml(plainMsg(g.glbMsg)):''}${g.glbUrl&&!g.glbMsg?`3D model ready · ${g.zipUrl?`<a href="${g.zipUrl}" target="_blank" rel="noopener" download>download model + textures (.zip)</a> · `:''}<a href="${g.glbUrl}" target="_blank" rel="noopener" download>.glb only</a>`:''}</div>`:''}${ownerView()?juryHtml(g)+texHtml(g):''}</div>`;
         });
-        list.innerHTML=h;list.scrollTop=list.scrollHeight;
+        // v3.7: do not yank the chat to the bottom on every update -- the user may be looking at an older image
+        const keep=list.scrollTop,atBottom=list.scrollHeight-list.scrollTop-list.clientHeight<90;
+        list.innerHTML=h;
+        list.scrollTop=(atBottom||renderGenerations.stick)?list.scrollHeight:keep;
+        renderGenerations.stick=false;
     }
     // Time display: the running counter moves in 5-second steps; the final time is exact.
     function fmtTime(s){s=Math.max(0,Math.round(s));return s<60?`${s}s`:`${Math.floor(s/60)}m ${String(s%60).padStart(2,'0')}s`}
@@ -2237,11 +2266,17 @@ input[type="range"] {
         const total=(g.qUntil-g.qStart)/1000,gone=(Date.now()-g.qStart)/1000;
         return `<div class="bubble qbox">${open.map(q=>`<div class="q"><span>${escapeHtml(q.text)}</span><div class="qo">${q.options.map(o=>`<button class="btn btn-small" data-act="answer" data-q="${q.id}" data-v="${o.value}">${escapeHtml(o.label)}</button>`).join('')}</div></div>`).join('')}<small>Optional. We carry on by ourselves in a few seconds.</small><i class="qbar" style="animation-duration:${total}s;animation-delay:-${gone}s"></i></div>`;
     }
-    function mileHtml(g){
-        if(!g.labelMilestone)return '';
-        return `<div class="bubble mile"><i class="ic">✓</i><span>Plan read — ${g.labelMilestone} object${g.labelMilestone===1?'':'s'} labelled<small>Check them now; the render carries on meanwhile.</small></span><button class="btn btn-small" data-act="labels-open">Review</button></div>`;
+    function piHtml(g){
+        const p=g.promptItems;if(!p||!(p.renamed||[]).length&&!(p.added||[]).length)return '';
+        const parts=[...(p.renamed||[]).map(x=>escapeHtml(x)),...(p.added||[]).map(x=>'found '+escapeHtml(x))];
+        return `<div class="bubble mile"><i class="ic">✓</i><span>From your description: ${parts.join(' · ')}<small>Labelled on the plan for this render.</small></span></div>`;
     }
-    function updatePending(msg){const g=state.generations.find(x=>x.pending);if(g){g.status=msg;const e=document.querySelector('.pend-text');if(e)e.textContent=msg}}
+    function mileHtml(g){
+        if(!g.labelMilestone)return piHtml(g);
+        return piHtml(g)+`<div class="bubble mile"><i class="ic">✓</i><span>Plan read — ${g.labelMilestone} object${g.labelMilestone===1?'':'s'} labelled<small>Check them now; the render carries on meanwhile.</small></span><button class="btn btn-small" data-act="labels-open">Review</button></div>`;
+    }
+    // v3.7: each loading card shows its own progress (two renders can run at once)
+    function updatePending(){document.querySelectorAll('#chat-list .msg[data-i]').forEach(m=>{const g=state.generations[+m.dataset.i],t=m.querySelector('.pend-text');if(g&&g.pending&&t){const v=plainMsg(g.status||'Working…');if(t.textContent!==v)t.textContent=v}})}
     const menu=document.getElementById('menu');
     function openMenu(btn,i,sub){
         const g=state.generations[i],r=btn.getBoundingClientRect();
@@ -2263,7 +2298,8 @@ input[type="range"] {
         if(a==='reopen'){if(g.editSrc)openEditor(g.editSrc,g.editMask,g.rawPrompt||'');return}
         if(a==='edit'){g.finalUrl?openEditor(g.finalUrl,null,''):toast('No image to edit yet');return}
         if(a==='other'){if(g.variants&&g.variants.length>1){g.variant=(g.variant+1)%g.variants.length;g.finalUrl=g.variants[g.variant];renderGenerations()}return}
-        if(a==='glb'){exportModel(g);return}
+        if(a==='pick'){const k=+el.dataset.k;if(g.variants&&g.variants[k]){g.variant=k;g.finalUrl=g.variants[k];renderGenerations()}return}
+        if(a==='glb'){if(g.glbPending)return;checkBefore3D(g);return}
         if(a==='like'){g.liked=!g.liked;renderGenerations()}
         else if(a==='download'){if(g.finalUrl)dl(g.finalUrl,`genarch_render_${i}.png`)}
         else if(a==='blend'){g.sceneBlendUrl?dl(g.sceneBlendUrl,`genarch_scene_${i}.blend`):toast('No 3D scene archived for this render yet.')}
@@ -2309,7 +2345,7 @@ input[type="range"] {
         viewportEl.style.cursor = c;
     });
     let hist = [], redoSt = [], lastSnap = null;
-    // v3.6: undo covers the plan's position / scale / measuring, the camera, crops
+    // v3.7: undo covers the plan's position / scale / measuring, the camera, crops
     // (each crop is a saved version of the plan picture) and label edits.
     const labelState = () => (state.labels ? labelPayload(state.labels.items) : null);
     const snap = () => JSON.stringify({ i: [state.image.x, state.image.y, state.image.scale, state.image.rotation, state.image.opacity], c: [state.camera.x, state.camera.y, state.camera.height, state.camera.fov, state.camera.rotation],
@@ -2341,7 +2377,7 @@ input[type="range"] {
         if (cur !== lastSnap) { hist.push(lastSnap); if (hist.length > 100) hist.shift(); redoSt = []; lastSnap = cur; }
         updUR();
     }
-    // v3.6: remove the plan (Delete key on the selected plan, or the button) to start on another one
+    // v3.7: remove the plan (Delete key on the selected plan, or the button) to start on another one
     // without resetting everything. Ctrl+Z brings it back.
     let planBin = null;
     const PLAN_KEYS = ['element', 'file', 'width', 'height', 'importId', 'importMeta', 'importCrop', 'importSub', 'versions', 'ver',
@@ -2506,6 +2542,37 @@ input[type="range"] {
         announceLabels.t = setTimeout(() => E('lab-banner').classList.add('hidden'), 12000);
         updateStatus('Labels are ready — check them on the plan', '#c89b4c');
     }
+    // v3.7: the plan is read as soon as it is confirmed, so the labels and walls the AI found are on
+    // the plan by the time the user has set the camera and written the prompt
+    function startEarlyRead() {
+        const f = state.floors[0];
+        if (!f || !f.element || !f.file || state.floorIdx !== 0) return;
+        if (f.traceId && f.traceSig === floorSig(f)) { planReadDone(f, true); return; }
+        clearTimeout(startEarlyRead.t);
+        startEarlyRead.t = setTimeout(() => {               // a moment's grace: unlocking again cancels it
+            if (!f.isLocked && state.image === f && !state.image.isLocked) return;
+            readingPill(true);
+            ensureTraced(f, 0, null).catch((e) => { console.warn('early plan read failed', e); readingPill(false); });
+        }, 1200);
+    }
+    function readingPill(on) {
+        const b = E('lab-banner');
+        if (!on) { b.classList.add('hidden'); b.classList.remove('reading'); return; }
+        clearTimeout(announceLabels.t);
+        b.classList.add('reading'); b.classList.remove('hidden');
+        E('lab-banner-text').innerHTML = '<span class="spin sm"></span> Reading your plan — what we find will show on it. Carry on with the camera meanwhile.';
+    }
+    function planReadDone(f, quiet) {
+        const b = E('lab-banner');
+        b.classList.remove('reading');
+        const n = (f.labelModel || []).length, w = f.walls && f.walls.wall ? f.walls.wall.length : 0;
+        state.labelsUnseen = true;
+        if (quiet && b.classList.contains('hidden')) return;
+        E('lab-banner-text').textContent = `Plan read: ${n} object${n === 1 ? '' : 's'}${w ? ' and the walls' : ''} — hover the plan to see them`;
+        b.classList.remove('hidden');
+        clearTimeout(announceLabels.t);
+        announceLabels.t = setTimeout(() => b.classList.add('hidden'), 14000);
+    }
     E('lab-banner-go').addEventListener('click', () => { if (state.labels) E('lab-banner').classList.add('hidden'); else setMode('labels'); });
     E('lab-banner-x').addEventListener('click', () => E('lab-banner').classList.add('hidden'));
 
@@ -2531,7 +2598,7 @@ input[type="range"] {
         E('dock-labels').classList.toggle('on', !!state.labels);
         positionLabels();
         syncModeBar();
-        // v3.6: tips only open from the ? on the rail
+        // v3.7: tips only open from the ? on the rail
         E('cam-floor-row') && E('cam-floor-row').classList.toggle('hidden', state.floors.filter((f) => f.element).length < 2);
         if (pl.classList.contains('on')) {
             const pos = worldToScreen(im.x, im.y), z = state.viewport.zoom, w = im.width * im.scale * z, h = im.height * im.scale * z;
@@ -2929,12 +2996,22 @@ input[type="range"] {
                 : `The server hit an error during "${what}" (code ${r.status}). Check the server window for the message.`);
         }
     }
-    const floorSig = (f) => (f.file ? `${f.file.name}|${f.file.size}|${f.width}x${f.height}|${JSON.stringify(f.importCrop || null)}` : '');
+    const floorSig = (f) => (f.file ? `${f.file.name}|${f.file.size}|${f.width}x${f.height}|${JSON.stringify(f.importCrop || null)}|${(+f.scale).toFixed(6)}` : '');
     const floorMeters = (f) => (Math.max(f.width, f.height) * f.scale) / PIXELS_PER_METER;
 
     // Steps 1-3 for one floor. Skipped when that same image was already read.
-    async function ensureTraced(f, idx, gen) {
-        if (f.traceId && f.traceSig === floorSig(f)) return;
+    // v3.7: one read per plan version, shared -- the early read started on "Confirm plan" and the
+    // render wait for the same job instead of reading twice
+    function ensureTraced(f, idx, gen) {
+        if (f.traceId && f.traceSig === floorSig(f)) return Promise.resolve();
+        const sig = floorSig(f);
+        if (f.traceJob && f.traceJob.sig === sig) { if (gen) f.traceJob.gens.push(gen); return f.traceJob.p; }
+        const job = { sig, gens: gen ? [gen] : [] };
+        job.p = traceFloor(f, idx, job).finally(() => { if (f.traceJob === job) f.traceJob = null; });
+        f.traceJob = job;
+        return job.p;
+    }
+    async function traceFloor(f, idx, job) {
         const sq = await withFloor(f, () => getSquareCanvasBlob());
         const fd = new FormData();
         fd.append('image', sq.blob, 'floorplan_square.png');
@@ -2957,11 +3034,12 @@ input[type="range"] {
             } catch (err) { if (++fails < 6) continue; throw err; }
             if (st.stage === 'error') throw new Error(st.error || 'Could not read the plan');
             if (st.stage === 'traced') {
-                Object.assign(f, { traceId: j.trace_id, traceSig: floorSig(f), labelModel: st.labels || [], labelItems: null, labelsSeen: false });
+                Object.assign(f, { traceId: j.trace_id, traceSig: job.sig, labelModel: st.labels || [], labelItems: null, labelsSeen: false, walls: st.walls || null });
+                if (idx === 0) planReadDone(f);
                 return;
             }
             const msg = `${FLOOR_NAMES[idx]}: ${st.message || 'reading'}`;
-            if (gen.status !== msg) { gen.status = msg; updateStatus(msg + '…', '#c89b4c'); }
+            job.gens.forEach((gen) => { if (gen.status !== msg) { gen.status = msg; updateStatus(msg + '…', '#c89b4c'); } });
         }
     }
 
@@ -2989,7 +3067,7 @@ input[type="range"] {
         return spec;
     }
 
-    // ---------------- v3.6: crop to one room ----------------
+    // ---------------- v3.7: crop to one room ----------------
     function openCrop(img, ppm, current) {
         return new Promise((resolve) => {
             const M = E('crop-modal'), cv = E('crop-canvas'), cx = cv.getContext('2d');
@@ -3095,7 +3173,7 @@ input[type="range"] {
         checkpoint();
         const keepScale = (orig.scale || f.scale), keepCal = state.scale.calibrated, keepMeta = f.importMeta, keepVersions = f.versions;
         const keepId = f.importId;
-        // v3.6: an imported PDF / DXF / DWG is re-drawn sharp for the cropped area (the overview picture
+        // v3.7: an imported PDF / DXF / DWG is re-drawn sharp for the cropped area (the overview picture
         // enlarged was blurry, with thick lines); if that fails the page keeps its own crop
         let img = res.img, factor = 1, sub = null;
         if (keepId) {
@@ -3124,7 +3202,7 @@ input[type="range"] {
     }
     E('btn-crop').addEventListener('click', cropCurrentPlan);
 
-    // v3.6 owner view: what the judges said, and the textures made for the 3D model
+    // v3.7 owner view: what the judges said, and the textures made for the 3D model
     function ownerView() { return !acct.requireInvite || !!(acct.user && acct.user.unlimited); }
     function juryHtml(g) {
         if (!g.jury || !g.jury.length) return '';
@@ -3141,9 +3219,12 @@ input[type="range"] {
         return `<details class="owner-box" open><summary>3D model textures (owner)${g.exportFolder ? ' · ' + escapeHtml(g.exportFolder) : ''}</summary><div class="tex-grid">${cells}</div></details>`;
     }
 
+    const MAX_RUNNING = 2;
     async function startRender(opts) {
         const floors = state.floors.filter((f) => f.element);
         if (!state.floors[0].element) return alert('Upload a floor plan image first!');
+        const running = state.generations.filter((g) => g.pending).length;
+        if (running >= MAX_RUNNING) { toast('Two renders are already running — start this one when one of them finishes'); return; }
         saveLabels(true);
         E('lab-banner').classList.add('hidden');
         const gen = Object.assign({
@@ -3151,7 +3232,7 @@ input[type="range"] {
             pending: true, status: 'Preparing…', t0: Date.now(), liked: false,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }, opts.extra || {});
-        state.generations.unshift(gen); renderGenerations();
+        state.generations.unshift(gen); renderGenerations.stick = true; renderGenerations();
         const refFiles = state.referenceFiles.slice();
         if (!opts.keepComposer) {
             E('prompt-text').value = ''; E('prompt-text').style.height = 'auto'; pgRender();
@@ -3200,6 +3281,24 @@ input[type="range"] {
     function updateOwnerUi() {
         const owner = !acct.requireInvite || !!(acct.user && acct.user.unlimited);
         E('btn-build3d').classList.toggle('hidden', !owner);
+        if (owner) ownerHealth();
+    }
+    // v3.7 owner only: retired AI models are swapped by the server on its own; this says when it
+    // happened, or when AI calls keep failing, so nobody has to watch the generations for it
+    async function ownerHealth() {
+        if (ownerHealth.t && Date.now() - ownerHealth.t < 30 * 60000) return;
+        ownerHealth.t = Date.now();
+        try {
+            const r = await fetch(`${BASE()}/api/health`); if (!r.ok) return;
+            const h = await r.json(), msgs = [];
+            Object.entries(h.models || {}).forEach(([role, m]) => { if (!m.ok) msgs.push(`${role} model ${m.using} is not answering`); });
+            (h.swaps || []).forEach((sw) => msgs.push(`${sw.model} was retired by Google — now using ${sw.to} (switched automatically)`));
+            if (h.failures >= 3) msgs.push(`${h.failures} AI calls failed in the last 24 h${h.last_failures && h.last_failures.length ? ' — last: ' + String(h.last_failures[h.last_failures.length - 1].error || '').slice(0, 120) : ''}`);
+            if (!msgs.length) return;
+            let el = E('owner-health');
+            if (!el) { el = document.createElement('div'); el.id = 'owner-health'; document.body.appendChild(el); el.addEventListener('click', () => el.remove()); }
+            el.innerHTML = `<b>Owner · AI models</b>${[...new Set(msgs)].map((m) => `<div>${escapeHtml(m)}</div>`).join('')}<small>Click to dismiss</small>`;
+        } catch (e) { /* the server may be older */ }
     }
 
     // ---------------- Following a generation ----------------
@@ -3221,7 +3320,7 @@ input[type="range"] {
             gen.buildOnly = true;
             gen.glbMsg = `Built in Blender (no render, no credit) · open ${st.folder || 'the payload folder'} → scene.blend`;
         }
-        // v3.6: the server may have moved the camera to get a clear view
+        // v3.7: the server may have moved the camera to get a clear view
         const cc = st.camera_check;
         if (cc && cc.moved_m && cc.rel_x != null) {
             moveCameraToRel(+cc.rel_x, +cc.rel_y);
@@ -3241,7 +3340,51 @@ input[type="range"] {
         state.camera.y = f0.y - h / 2 + relY * h;
     }
 
-    // v3.6: 3D model download. Runs on the server alongside renders.
+    // v3.7: 3D model download. Runs on the server alongside renders.
+    // v3.7: before a 3D model is built, show the labels of THIS picture -- only what is labelled is built
+    function checkBefore3D(g) {
+        const M = E('x3d-modal'), cv = E('x3d-canvas'), cx = cv.getContext('2d');
+        const labs = (g.labelsUsed || (g.labelItems || g.labelModel || []).filter((o) => !o.deleted)).filter((o) => o.name || o.cls);
+        const kind = (o) => o.glb || (['wall', 'window', 'door', 'column', 'stairs'].includes(o.cls) || o.fixed ? 'structure' : 'marker');
+        const chips = labs.map((o) => `<span class="${kind(o) === 'structure' ? 's' : 'm'}">${escapeHtml(o.name || o.cls)}</span>`).join('');
+        E('x3d-list').innerHTML = chips || '<span class="m">No objects labelled — only walls, doors and windows will be built</span>';
+        const draw = (img) => {
+            const S = Math.min(560, innerWidth * 0.8);
+            cv.width = S; cv.height = S;
+            cx.clearRect(0, 0, S, S);
+            if (img) cx.drawImage(img, 0, 0, S, S);
+            labs.forEach((o) => {
+                const st = kind(o) === 'structure';
+                cx.save();
+                cx.strokeStyle = st ? '#b8893a' : '#6b7280'; cx.fillStyle = st ? 'rgba(200,155,76,.28)' : 'rgba(107,114,128,.10)';
+                cx.lineWidth = 1.6; cx.setLineDash(st ? [] : [5, 4]);
+                if (o.pts && o.pts.length > 2) {
+                    cx.beginPath(); o.pts.forEach((q, k) => { const x = (q.x != null ? q.x : q[0]) * S, y = (q.y != null ? q.y : q[1]) * S; k ? cx.lineTo(x, y) : cx.moveTo(x, y); }); cx.closePath();
+                } else {
+                    cx.translate(o.x * S, o.y * S); cx.rotate(((o.rot || 0) * Math.PI) / 180);
+                    cx.beginPath(); cx.rect(-o.w * S / 2, -o.h * S / 2, o.w * S, o.h * S);
+                }
+                cx.fill(); cx.stroke(); cx.restore();
+                cx.font = "10.5px 'IBM Plex Sans', sans-serif"; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+                const t = o.name || o.cls, tw = cx.measureText(t).width + 8;
+                cx.fillStyle = 'rgba(255,255,255,.9)'; cx.fillRect(o.x * S - tw / 2, o.y * S - 7, tw, 14);
+                cx.fillStyle = st ? '#7a5a22' : '#4b5563'; cx.fillText(t, o.x * S, o.y * S);
+            });
+        };
+        draw(null);
+        const im = new Image(); im.crossOrigin = 'anonymous';
+        im.onload = () => draw(im); im.src = `${BASE()}/payloads/${g.payloadId}/1_input_square.png`;
+        M.classList.remove('hidden');
+        const close = () => M.classList.add('hidden');
+        E('x3d-cancel').onclick = close;
+        M.onclick = (e) => { if (e.target === M) close(); };
+        E('x3d-ok').onclick = () => { close(); exportModel(g); };
+        E('x3d-relabel').onclick = () => {
+            close();
+            if (g.labelRoot && g.labelModel) { openLabels(g, g.labelModel, g.labelItems || null); toast('Change the labels, then render again — the 3D model is made from the new picture'); }
+            else setMode('labels');
+        };
+    }
     async function exportModel(gen) {
         if (gen.glbPending) return;
         const baseUrl = API_BASE_URL || 'http://localhost:5000';
@@ -3303,6 +3446,8 @@ input[type="range"] {
                     // open them straight away unless the user is busy with the plan or camera
                     if (currentMode() === 'go') setMode('labels', true);
                 }
+                if (st.labels_used && !gen.labelsUsed) gen.labelsUsed = st.labels_used;
+                if (st.prompt_items && !gen.promptItems) { gen.promptItems = st.prompt_items; renderGenerations(); }
                 if (st.questions && st.questions.length && !gen.questions) {
                     const left = Math.max(1, st.questions_left || 10);
                     gen.questions = st.questions.map((q) => Object.assign({}, q));
@@ -3418,7 +3563,7 @@ input[type="range"] {
     function boxLocal(o, p) { return rotatePoint(p.x - o.x, p.y - o.y, 0, 0, -(o.rot || 0)); }
     function boxPoint(o, lx, ly) { const r = rotatePoint(lx, ly, 0, 0, o.rot || 0); return { x: o.x + r.x, y: o.y + r.y }; }
     function boxHandles(o) { return { size: boxPoint(o, o.w / 2, o.h / 2), rot: boxPoint(o, 0, -o.h / 2 - 24 / labUnit().px) }; }
-    // v3.6: eight handles (corners + side midpoints); each moves only its own sides
+    // v3.7: eight handles (corners + side midpoints); each moves only its own sides
     function sideHandles(o) {
         const out = [];
         for (const sx of [-1, 0, 1]) for (const sy of [-1, 0, 1]) {
@@ -3480,6 +3625,64 @@ input[type="range"] {
             o.el.style.top = s.y + 'px';
         });
     }
+
+    // v3.7: what the plan read found -- walls as a soft overlay (stronger under the cursor) and, outside
+    // the labels step, each object's box and name in light ink
+    let hoverWall = null, hoverMouse = null;
+    function polyHitU(pts, p) {
+        let hit = false;
+        for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+            const a = pts[i], b = pts[j];
+            if ((a[1] > p.y) !== (b[1] > p.y) && p.x < ((b[0] - a[0]) * (p.y - a[1])) / (b[1] - a[1]) + a[0]) hit = !hit;
+        }
+        return hit;
+    }
+    function drawPlanRead() {
+        const f = state.floors[0];
+        if (state.floorIdx !== 0 || !f || !f.element || !f.isLocked || !f.traceId || f.traceSig !== floorSig(f)) return;
+        const W = f.walls || {};
+        ctx.save();
+        const COL = { wall: '200,155,76', window: '70,130,200', door: '160,90,50', column: '200,155,76' };
+        hoverWall = null;
+        if (hoverMouse) {
+            const p = screenToU(hoverMouse.x, hoverMouse.y);
+            for (const cls of ['window', 'door', 'column', 'wall']) for (const poly of (W[cls] || [])) if (!hoverWall && polyHitU(poly, p)) hoverWall = { cls, poly };
+        }
+        for (const cls of ['wall', 'column', 'window', 'door']) {
+            for (const poly of (W[cls] || [])) {
+                const on = hoverWall && hoverWall.poly === poly;
+                ctx.beginPath();
+                poly.forEach((q, k) => { const sc = uToScreen(q[0], q[1]); k ? ctx.lineTo(sc.x, sc.y) : ctx.moveTo(sc.x, sc.y); });
+                ctx.closePath();
+                ctx.fillStyle = `rgba(${COL[cls]},${on ? 0.42 : 0.13})`; ctx.fill();
+                if (on) { ctx.strokeStyle = `rgba(${COL[cls]},0.95)`; ctx.lineWidth = 1.6; ctx.stroke(); }
+            }
+        }
+        if (!state.labels) {
+            ctx.font = "11px 'IBM Plex Sans', sans-serif"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            (f.labelModel || []).forEach((o) => {
+                if (o.cls === 'window' || o.cls === 'door') return;
+                const a = uToScreen(o.x - o.w / 2, o.y - o.h / 2), b = uToScreen(o.x + o.w / 2, o.y + o.h / 2);
+                ctx.strokeStyle = 'rgba(200,155,76,.7)'; ctx.lineWidth = 1; ctx.setLineDash([4, 3]);
+                ctx.strokeRect(Math.min(a.x, b.x), Math.min(a.y, b.y), Math.abs(b.x - a.x), Math.abs(b.y - a.y)); ctx.setLineDash([]);
+                const c = uToScreen(o.x, o.y), t = o.name || o.cls, tw = ctx.measureText(t).width + 10;
+                ctx.fillStyle = 'rgba(255,255,255,.86)'; ctx.fillRect(c.x - tw / 2, c.y - 8, tw, 16);
+                ctx.fillStyle = '#8a6a2f'; ctx.fillText(t, c.x, c.y);
+            });
+        }
+        if (hoverWall) {
+            const NAMES = { wall: 'Wall', window: 'Window', door: 'Door', column: 'Column' };
+            const t = `${NAMES[hoverWall.cls]} — found on the plan${state.labels ? '' : ' · missing one? draw it in the labels step and name it “Wall”'}`;
+            ctx.font = "11.5px 'IBM Plex Sans', sans-serif"; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+            const tw = ctx.measureText(t).width + 14;
+            const tx = hoverMouse.x + 14 + tw > innerWidth - 380 ? hoverMouse.x - 14 - tw : hoverMouse.x + 14;
+            ctx.fillStyle = 'rgba(27,28,31,.86)'; ctx.fillRect(tx, hoverMouse.y + 12, tw, 22);
+            ctx.fillStyle = '#fff'; ctx.fillText(t, tx + 7, hoverMouse.y + 17);
+        }
+        ctx.restore();
+    }
+    canvas.addEventListener('mousemove', (e) => { hoverMouse = { x: e.clientX, y: e.clientY }; });
+    canvas.addEventListener('mouseleave', () => { hoverMouse = null; });
 
     function drawLabelBoxes() {
         const L = state.labels;
@@ -3617,6 +3820,14 @@ input[type="range"] {
     resizeCanvas();
     requestAnimationFrame(draw);
 </script>
+<div id="x3d-modal" class="hidden"><div id="x3d-card">
+    <h3>Check what goes into the 3D model</h3>
+    <p class="why">The model is built from <b>this picture and its labels</b>. Walls, doors, windows and the built-ins marked <b class="k-s">solid</b> are built and textured from the picture; movable furniture marked <b class="k-m">dashed</b> becomes a simple marker. <b>Anything not labelled is not built.</b></p>
+    <canvas id="x3d-canvas"></canvas>
+    <div id="x3d-list"></div>
+    <p class="why small">Want something changed? Change the labels and render again — each picture keeps its own labels and its own 3D model, so the textures always match what is built.</p>
+    <div class="row"><button id="x3d-cancel" class="btn btn-small btn-ghost" style="margin-right:auto">Cancel</button><button id="x3d-relabel" class="btn btn-small">Change labels (new render)</button><button id="x3d-ok" class="btn btn-small btn-accent">Build 3D model · 2 renders</button></div>
+</div></div>
 <div id="crop-modal" class="hidden"><div id="crop-card">
     <h3>Pick the room to render</h3>
     <p class="why">The renders work best on one room, or a small group of rooms. A bigger area spreads the model's attention over walls and furniture your camera will never see, and small details in your room get missed. Drag a box around the room you want, then move it or pull its edges and corners to adjust.</p>
